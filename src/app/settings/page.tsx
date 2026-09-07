@@ -31,7 +31,7 @@ export default async function SettingsPage() {
   const envConfigured = Boolean(process.env.GROQ_API_KEY?.trim());
 
   return (
-    <div className="mx-auto max-w-3xl">
+    <div className="mx-auto max-w-6xl">
       <header className="border-b-4 border-black bg-[var(--orange)] p-4 sm:p-5">
         <h1 className="mt-1 text-4xl font-black tracking-[-0.065em]">설정</h1>
       </header>

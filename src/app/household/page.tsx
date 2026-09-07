@@ -88,7 +88,7 @@ export default async function HouseholdPage() {
   const masterRules = (ruleRows ?? []) as MasterRule[];
 
   return (
-    <div className="mx-auto max-w-3xl">
+    <div className="mx-auto max-w-6xl">
       <HouseholdNav current="상태판" />
       <header className="border-b-4 border-black bg-[var(--cyan)] p-4 sm:p-5">
         <h1 className="mt-1 text-4xl font-black tracking-[-0.065em]">자취방</h1>

@@ -1,17 +1,21 @@
 "use client";
 
-import { Eye, LoaderCircle, Save, UserRound, X } from "lucide-react";
-import { useActionState, useRef, useState } from "react";
+import { Eye, LoaderCircle, Save, Trash2, UserRound, X } from "lucide-react";
+import { startTransition, useActionState, useRef, useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import { ConfirmActionForm } from "@/components/ui/confirm-action";
 import type { RemotePersonalSchedule, RemoteSchedule } from "@/lib/tutoring/remote-repository";
 import { durationBetween, endTimeFor, personalScheduleColor } from "@/lib/tutoring/timetable";
 import {
+  removePersonalScheduleAction,
+  removeScheduleAction,
   savePersonalScheduleDraftAction,
   saveScheduleDraftAction,
   type ScheduleActionState,
 } from "./actions";
-import { type ScheduleDraft, WeeklyTimetable } from "./weekly-timetable";
+import { EditableWeeklyTimetable } from "./editable-weekly-timetable";
+import type { ScheduleDraft, ScheduleMove } from "./weekly-timetable";
 
 const initialState: ScheduleActionState = { status: "idle" };
 const fieldClass =
@@ -145,6 +149,24 @@ export function ScheduleWorkspace({
     setDraft((current) =>
       current ? { ...current, weekday: weekdayValue, startTime: startTimeValue } : current,
     );
+  }
+
+  // Dragging a saved block on the grid writes straight through; the editor form
+  // stays for creating entries and changing anything other than the placement.
+  function commitMove(move: ScheduleMove) {
+    const formData = new FormData();
+    formData.set("weekday", String(move.weekday));
+    formData.set("startTime", move.startTime);
+    formData.set("endTime", timeAfter(move.startTime, move.durationMinutes));
+    if (move.kind === "personal") {
+      formData.set("personalScheduleId", move.id);
+      formData.set("title", move.title);
+      startTransition(() => personalAction(formData));
+      return;
+    }
+    formData.set("scheduleId", move.id);
+    formData.set("studentId", move.studentId ?? "");
+    startTransition(() => studentAction(formData));
   }
 
   const previewMatchesKind = draft?.kind === kind;
@@ -349,8 +371,26 @@ export function ScheduleWorkspace({
       </section>
 
       <section aria-label="주간 시간표">
-        <WeeklyTimetable
+        <EditableWeeklyTimetable
           draft={previewMatchesKind ? draft : null}
+          onCommitMove={commitMove}
+          renderDeleteAction={(item) => (
+            <ConfirmActionForm
+              action={
+                item.kind === "personal" ? removePersonalScheduleAction : removeScheduleAction
+              }
+              confirmMessage="이 일정을 시간표에서 삭제할까요?"
+            >
+              <input name="scheduleId" type="hidden" value={item.id} />
+              <button
+                aria-label={`${item.title} 일정 삭제`}
+                className="rein-schedule-item-action"
+                type="submit"
+              >
+                <Trash2 aria-hidden="true" className="size-3.5" />
+              </button>
+            </ConfirmActionForm>
+          )}
           onDraftMove={previewMatchesKind ? updateDraft : undefined}
           onEditItem={editItem}
           personalSchedules={personalSchedules}

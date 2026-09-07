@@ -1,9 +1,14 @@
 "use client";
 
-import { GripVertical, Pencil, Trash2 } from "lucide-react";
-import type { CSSProperties, DragEvent, KeyboardEvent } from "react";
+import { GripVertical, Pencil } from "lucide-react";
+import type {
+  CSSProperties,
+  DragEvent,
+  KeyboardEvent,
+  PointerEvent as ReactPointerEvent,
+} from "react";
+import type { ReactNode } from "react";
 
-import { ConfirmActionForm } from "@/components/ui/confirm-action";
 import type { RemotePersonalSchedule, RemoteSchedule } from "@/lib/tutoring/remote-repository";
 import {
   clockTimeFor,
@@ -17,7 +22,6 @@ import {
   TIMETABLE_START_MINUTE,
   WEEKDAYS,
 } from "@/lib/tutoring/timetable";
-import { removePersonalScheduleAction, removeScheduleAction } from "./actions";
 
 export type ScheduleDraft = {
   kind: "student" | "personal";
@@ -35,6 +39,34 @@ type DisplayItem = ScheduleDraft & {
   source: RemoteSchedule | RemotePersonalSchedule | null;
   isDraft: boolean;
 };
+
+export type ScheduleMove = {
+  kind: ScheduleDraft["kind"];
+  id: string;
+  studentId?: string | undefined;
+  title: string;
+  weekday: number;
+  startTime: string;
+  durationMinutes: number;
+};
+
+export type DragState = {
+  key: string;
+  mode: "move" | "resize";
+  weekday: number;
+  startMinute: number;
+  durationMinutes: number;
+  /** Minutes between the block's top edge and where the pointer grabbed it. */
+  grabOffsetMinutes: number;
+  moved: boolean;
+};
+
+const SNAP_MINUTES = 15;
+const MIN_DURATION_MINUTES = 15;
+
+function snap(minute: number) {
+  return Math.round(minute / SNAP_MINUTES) * SNAP_MINUTES;
+}
 
 function displayColor(item: DisplayItem) {
   return item.kind === "personal"
@@ -160,13 +192,14 @@ function ItemActions({
   item,
   editable,
   onEditItem,
+  renderDeleteAction,
 }: {
   item: DisplayItem;
   editable: boolean;
   onEditItem?: ((item: ScheduleDraft) => void) | undefined;
+  renderDeleteAction?: ((item: ScheduleMove) => ReactNode) | undefined;
 }) {
-  if (item.isDraft || !editable) return null;
-  const action = item.kind === "personal" ? removePersonalScheduleAction : removeScheduleAction;
+  if (item.isDraft || !editable || !item.id) return null;
   return (
     <div className="rein-schedule-item-actions">
       {onEditItem && (
@@ -190,16 +223,15 @@ function ItemActions({
           <Pencil aria-hidden="true" className="size-3.5" />
         </button>
       )}
-      <ConfirmActionForm action={action} confirmMessage="이 일정을 시간표에서 삭제할까요?">
-        <input name="scheduleId" type="hidden" value={item.id} />
-        <button
-          aria-label={`${item.title} 일정 삭제`}
-          className="rein-schedule-item-action"
-          type="submit"
-        >
-          <Trash2 aria-hidden="true" className="size-3.5" />
-        </button>
-      </ConfirmActionForm>
+      {renderDeleteAction?.({
+        kind: item.kind,
+        id: item.id,
+        studentId: item.studentId,
+        title: item.title,
+        weekday: item.weekday,
+        startTime: item.startTime,
+        durationMinutes: item.durationMinutes,
+      })}
     </div>
   );
 }
@@ -212,6 +244,11 @@ export function WeeklyTimetable({
   draft,
   onDraftMove,
   onEditItem,
+  onCommitMove,
+  renderDeleteAction,
+  drag = null,
+  setDrag,
+  dayColumnsRef,
 }: {
   schedules: RemoteSchedule[];
   personalSchedules?: RemotePersonalSchedule[];
@@ -220,6 +257,11 @@ export function WeeklyTimetable({
   draft?: ScheduleDraft | null | undefined;
   onDraftMove?: ((weekday: number, startTime: string) => void) | undefined;
   onEditItem?: ((item: ScheduleDraft) => void) | undefined;
+  onCommitMove?: ((move: ScheduleMove) => void) | undefined;
+  renderDeleteAction?: ((item: ScheduleMove) => ReactNode) | undefined;
+  drag?: DragState | null | undefined;
+  setDrag?: ((next: DragState | null) => void) | undefined;
+  dayColumnsRef?: { current: (HTMLDivElement | null)[] } | undefined;
 }) {
   const items = toDisplayItems({ schedules, personalSchedules, draft });
   const starts = items
@@ -248,12 +290,13 @@ export function WeeklyTimetable({
   const timelineHeight = (rangeEnd - rangeStart) * pixelsPerMinute;
   // Quarter-hour guides are an editing affordance, not permanent timetable noise.
   // They appear only while the unsaved preview can be moved.
-  const quarterHourMinutes = draft
-    ? Array.from(
-        { length: (rangeEnd - rangeStart) / 15 - 1 },
-        (_, index) => rangeStart + (index + 1) * 15,
-      ).filter((minute) => minute % 60 !== 0)
-    : [];
+  const quarterHourMinutes =
+    draft || drag
+      ? Array.from(
+          { length: (rangeEnd - rangeStart) / 15 - 1 },
+          (_, index) => rangeStart + (index + 1) * 15,
+        ).filter((minute) => minute % 60 !== 0)
+      : [];
   const todayLabel = new Intl.DateTimeFormat("ko-KR", {
     timeZone: "Asia/Seoul",
     weekday: "short",
@@ -261,6 +304,110 @@ export function WeeklyTimetable({
     .format(new Date())
     .slice(0, 1);
   const todayWeekday = { 일: 0, 월: 1, 화: 2, 수: 3, 목: 4, 금: 5, 토: 6 }[todayLabel] ?? 0;
+  const canDirectEdit = editable && Boolean(onCommitMove) && Boolean(setDrag);
+  // While a block is being dragged it renders from the drag state, so it can
+  // cross into another day's column before anything is saved.
+  const previewItems = drag
+    ? items.map((item) =>
+        item.key === drag.key
+          ? {
+              ...item,
+              weekday: drag.weekday,
+              startTime: clockTimeFor(drag.startMinute),
+              durationMinutes: drag.durationMinutes,
+            }
+          : item,
+      )
+    : items;
+
+  function weekdayAt(clientX: number) {
+    const index = (dayColumnsRef?.current ?? []).findIndex((column) => {
+      if (!column) return false;
+      const rect = column.getBoundingClientRect();
+      return clientX >= rect.left && clientX <= rect.right;
+    });
+    return index >= 0 ? WEEKDAYS[index]?.value : undefined;
+  }
+
+  function minuteAt(clientY: number) {
+    const column = (dayColumnsRef?.current ?? []).find(Boolean);
+    if (!column) return null;
+    const rect = column.getBoundingClientRect();
+    return rangeStart + (clientY - rect.top) / pixelsPerMinute;
+  }
+
+  function beginDrag(
+    event: ReactPointerEvent<HTMLElement>,
+    item: DisplayItem,
+    mode: DragState["mode"],
+  ) {
+    if (!canDirectEdit || item.isDraft || !item.id) return;
+    if (event.button !== 0) return;
+    // Let the edit and delete controls keep their own click behaviour.
+    if ((event.target as HTMLElement).closest("button, form, a")) return;
+    const startMinute = parseClockTime(item.startTime);
+    if (startMinute === null) return;
+    const pointerMinute = minuteAt(event.clientY);
+    // Capture on the block itself so the resize grip's moves land on the same
+    // element that carries the move and release handlers.
+    const block = (event.currentTarget as HTMLElement).closest("article");
+    block?.setPointerCapture(event.pointerId);
+    setDrag?.({
+      key: item.key,
+      mode,
+      weekday: item.weekday,
+      startMinute,
+      durationMinutes: item.durationMinutes,
+      grabOffsetMinutes: pointerMinute === null ? 0 : pointerMinute - startMinute,
+      moved: false,
+    });
+  }
+
+  function updateDrag(event: ReactPointerEvent<HTMLElement>) {
+    if (!drag) return;
+    const pointerMinute = minuteAt(event.clientY);
+    if (pointerMinute === null) return;
+    if (drag.mode === "resize") {
+      const rawDuration = pointerMinute - drag.startMinute;
+      const durationMinutes = Math.max(
+        MIN_DURATION_MINUTES,
+        Math.min(rangeEnd - drag.startMinute, snap(rawDuration)),
+      );
+      if (durationMinutes !== drag.durationMinutes) {
+        setDrag?.({ ...drag, durationMinutes, moved: true });
+      }
+      return;
+    }
+    const startMinute = Math.max(
+      rangeStart,
+      Math.min(rangeEnd - drag.durationMinutes, snap(pointerMinute - drag.grabOffsetMinutes)),
+    );
+    const weekday = weekdayAt(event.clientX) ?? drag.weekday;
+    if (startMinute !== drag.startMinute || weekday !== drag.weekday) {
+      setDrag?.({ ...drag, startMinute, weekday, moved: true });
+    }
+  }
+
+  function endDrag(item: DisplayItem) {
+    if (!drag || drag.key !== item.key) return;
+    const changed =
+      drag.moved &&
+      (drag.weekday !== item.weekday ||
+        clockTimeFor(drag.startMinute) !== item.startTime ||
+        drag.durationMinutes !== item.durationMinutes);
+    if (changed && item.id) {
+      onCommitMove?.({
+        kind: item.kind,
+        id: item.id,
+        studentId: item.studentId,
+        title: item.title,
+        weekday: drag.weekday,
+        startTime: clockTimeFor(drag.startMinute),
+        durationMinutes: drag.durationMinutes,
+      });
+    }
+    setDrag?.(null);
+  }
 
   return (
     <>
@@ -303,7 +450,12 @@ export function WeeklyTimetable({
                         rangeStart={rangeStart}
                       />
                     ) : (
-                      <ItemActions editable={editable} item={item} onEditItem={onEditItem} />
+                      <ItemActions
+                        editable={editable}
+                        item={item}
+                        onEditItem={onEditItem}
+                        renderDeleteAction={renderDeleteAction}
+                      />
                     )}
                   </article>
                 ))}
@@ -343,8 +495,8 @@ export function WeeklyTimetable({
               </span>
             ))}
           </div>
-          {WEEKDAYS.map((day) => {
-            const dayItems = items.filter((item) => item.weekday === day.value);
+          {WEEKDAYS.map((day, dayIndex) => {
+            const dayItems = previewItems.filter((item) => item.weekday === day.value);
             const lanes = collisionLanes(
               dayItems.map((item) => ({
                 id: item.key,
@@ -357,6 +509,9 @@ export function WeeklyTimetable({
                 className="relative border-l-2 border-black"
                 data-today={day.value === todayWeekday}
                 key={day.value}
+                ref={(node) => {
+                  if (dayColumnsRef) dayColumnsRef.current[dayIndex] = node;
+                }}
                 onDragOver={(event) => {
                   if (!draft || !onDraftMove) return;
                   event.preventDefault();
@@ -406,11 +561,19 @@ export function WeeklyTimetable({
                     width: `calc(${laneWidth}% - 0.5rem)`,
                     backgroundColor: displayColor(item),
                   };
+                  const draggable = canDirectEdit && !item.isDraft && Boolean(item.id);
+                  const isDragging = drag?.key === item.key;
                   return (
                     <article
                       aria-label={`${item.title}, ${day.label}요일 ${item.startTime}부터 ${endTimeFor(item.startTime, item.durationMinutes)}까지, ${item.kind === "student" ? "학생 수업" : "개인 일정"}${item.isDraft ? ", 저장 전" : ""}`}
-                      className={`rein-schedule-block absolute z-10 overflow-hidden border-2 border-black p-2 shadow-[3px_3px_0_#101010] ${item.isDraft ? "rein-schedule-block--draft" : ""}`}
+                      className={`rein-schedule-block absolute z-10 overflow-hidden border-2 border-black p-2 shadow-[3px_3px_0_#101010] ${item.isDraft ? "rein-schedule-block--draft" : ""} ${draggable ? "rein-schedule-block--grabbable" : ""} ${isDragging ? "rein-schedule-block--dragging" : ""}`}
                       key={item.key}
+                      onPointerDown={
+                        draggable ? (event) => beginDrag(event, item, "move") : undefined
+                      }
+                      onPointerMove={isDragging ? updateDrag : undefined}
+                      onPointerUp={isDragging ? () => endDrag(item) : undefined}
+                      onPointerCancel={isDragging ? () => setDrag?.(null) : undefined}
                       style={style}
                     >
                       <div className="flex items-start justify-between gap-1">
@@ -428,9 +591,24 @@ export function WeeklyTimetable({
                             rangeStart={rangeStart}
                           />
                         ) : (
-                          <ItemActions editable={editable} item={item} onEditItem={onEditItem} />
+                          <ItemActions
+                            editable={editable}
+                            item={item}
+                            onEditItem={onEditItem}
+                            renderDeleteAction={renderDeleteAction}
+                          />
                         )}
                       </div>
+                      {draggable && (
+                        <span
+                          aria-hidden="true"
+                          className="rein-schedule-resize"
+                          onPointerDown={(event) => {
+                            event.stopPropagation();
+                            beginDrag(event, item, "resize");
+                          }}
+                        />
+                      )}
                     </article>
                   );
                 })}

@@ -2,7 +2,7 @@
   "project": "rein",
   "artifact_kind": "codex-full-build-specification-pack",
   "version": "1.0.0",
-  "generated_at": "2026-09-07T18:14:24.707Z",
+  "generated_at": "2026-09-07T23:00:58.147Z",
   "locale": "ko-KR",
   "currency": "KRW",
   "timezone": "Asia/Seoul",
@@ -59,7 +59,7 @@
     "agent_instructions": "AGENTS.md",
     "setup": "MCP_AND_SKILLS_SETUP.md"
   },
-  "file_count_excluding_manifest": 379,
+  "file_count_excluding_manifest": 380,
   "files": [
     {
       "path": ".codex/config.toml.example",
@@ -216,9 +216,9 @@
     },
     {
       "path": ".next-dev.log",
-      "bytes": 30495,
-      "lines": 436,
-      "sha256": "174d9961630ca422680860d0d61eb666b3b9270f6f4c0c77a12d8269b81d281b"
+      "bytes": 43345,
+      "lines": 605,
+      "sha256": "2fb5886d755287075b6b6ee9589c1bff99e99d1b19e089d673e692c471ea1584"
     },
     {
       "path": ".prettierignore",
@@ -738,9 +738,9 @@
     },
     {
       "path": "src/app/globals.css",
-      "bytes": 79021,
-      "lines": 3950,
-      "sha256": "74e0972ee5a4f0f317f210d014841d99aa05332037352ff000e22d22975f0ce8"
+      "bytes": 80045,
+      "lines": 3998,
+      "sha256": "643ce73d86afe253b4d2621761bba8567a442f376ab6d8ed877ccc1cd8ad619f"
     },
     {
       "path": "src/app/home/page.tsx",
@@ -842,7 +842,7 @@
       "path": "src/app/household/page.tsx",
       "bytes": 7144,
       "lines": 194,
-      "sha256": "a7f12808b61e3c0b0cc1798a67bff18ff65b66f3dd12bf12995f10dcdecd96dc"
+      "sha256": "2a5e4ae18bbd367787c9728c9111c9701140623e7c74bb2ecf4392a0bfbe19fb"
     },
     {
       "path": "src/app/household/settlements/page.tsx",
@@ -1232,7 +1232,7 @@
       "path": "src/app/settings/page.tsx",
       "bytes": 4520,
       "lines": 127,
-      "sha256": "74f3661eee42cf06663289c10d64d75e01d4aa88246fad09a6025e89a4e9f901"
+      "sha256": "e2407f5201888ace093d3e69d2fc43a3436f83a83dd23b5a3d3d23bfad512927"
     },
     {
       "path": "src/app/settings/profile/page.tsx",
@@ -1301,6 +1301,12 @@
       "sha256": "1a3e19ce89ccea73d51fdf6be1bee41a573c5308dc05771baa46304b5e27134d"
     },
     {
+      "path": "src/app/tutoring/schedule/editable-weekly-timetable.tsx",
+      "bytes": 1154,
+      "lines": 32,
+      "sha256": "d6fe0341b99404ddba2a9b00c3669f915016bc8616c0ea0a523ff0f7d3347e77"
+    },
+    {
       "path": "src/app/tutoring/schedule/page.tsx",
       "bytes": 2201,
       "lines": 67,
@@ -1308,9 +1314,9 @@
     },
     {
       "path": "src/app/tutoring/schedule/schedule-workspace.tsx",
-      "bytes": 13526,
-      "lines": 363,
-      "sha256": "860da90760992068237ed4d345e53ecfb8bf50af1354b0aec7ada5dd6b6e3c2f"
+      "bytes": 15248,
+      "lines": 403,
+      "sha256": "028f5e215df8b5c3e408a758c8b858edd48fe843c402053927801385250e5b88"
     },
     {
       "path": "src/app/tutoring/schedule/tutoring-resource-dock.tsx",
@@ -1326,9 +1332,9 @@
     },
     {
       "path": "src/app/tutoring/schedule/weekly-timetable.tsx",
-      "bytes": 16253,
-      "lines": 445,
-      "sha256": "595c8f20ebc7995ba60dbcb12fba4a085691e5ac29bf6d9b5e0fdb6ad820fdd9"
+      "bytes": 22289,
+      "lines": 623,
+      "sha256": "3357f96c93d24e9bdbc56df8d5ff6c2eece825ce41ddd7398dd440ea3a373b2e"
     },
     {
       "path": "src/app/tutoring/students/[studentId]/edit/page.tsx",
@@ -2304,9 +2310,9 @@
     },
     {
       "path": "vitest.config.ts",
-      "bytes": 453,
+      "bytes": 473,
       "lines": 21,
-      "sha256": "eda753e69d79ca45ba7a143e2937ebb9219b04473a8d4e5cb84ec17f176bc18a"
+      "sha256": "23dfc8dcec502cc9badf1efb615188865bc0cc832cfab098bb8c3f59b7c0f9ca"
     }
   ]
 }

@@ -2213,6 +2213,14 @@ a:focus-visible {
   gap: 1rem;
   margin-top: 1.25rem;
 }
+
+/* Side by side once the page is wide enough that a single card would stretch. */
+@media (min-width: 64rem) {
+  .rein-settings-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+  }
+}
 .rein-settings-card,
 .rein-settings-provider,
 .rein-household-link-panel,
@@ -3588,6 +3596,46 @@ body {
   border-style: dashed !important;
   outline: 3px solid #fff;
   outline-offset: -6px;
+}
+
+.rein-schedule-block--grabbable {
+  cursor: grab;
+  touch-action: none;
+}
+
+.rein-schedule-block--dragging {
+  z-index: 30 !important;
+  cursor: grabbing;
+  box-shadow: 6px 6px 0 #101010;
+}
+
+/* Bottom edge doubles as the resize target for the block's duration. */
+.rein-schedule-resize {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 0.7rem;
+  cursor: ns-resize;
+  touch-action: none;
+}
+
+.rein-schedule-resize::after {
+  position: absolute;
+  bottom: 0.2rem;
+  left: 50%;
+  width: 1.6rem;
+  height: 0.2rem;
+  border: 1px solid #000;
+  background: rgba(255, 255, 255, 0.85);
+  content: "";
+  opacity: 0;
+  transform: translateX(-50%);
+}
+
+.rein-schedule-block--grabbable:hover .rein-schedule-resize::after,
+.rein-schedule-block--dragging .rein-schedule-resize::after {
+  opacity: 1;
 }
 
 .rein-schedule-drag-handle,
