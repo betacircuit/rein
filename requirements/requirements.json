@@ -1,0 +1,1238 @@
+{
+  "version": "1.0.0",
+  "verified_at": "2026-09-02",
+  "requirements": [
+    {
+      "id": "CTX-001",
+      "area": "Context",
+      "priority": "P0",
+      "phase": "00",
+      "requirement": "Primary persona is 최재원, a second-year student in Seoul National University Electrical and Computer Engineering.",
+      "acceptance": "Demo profile and product documentation reflect the persona; school/major storage remains optional and private."
+    },
+    {
+      "id": "CTX-002",
+      "area": "Context",
+      "priority": "P0",
+      "phase": "00",
+      "requirement": "Default locale is Korean, currency is KRW, and timezone is Asia/Seoul.",
+      "acceptance": "Dates, money, week boundaries, reminders, and seed data use ko-KR, KRW, and Asia/Seoul."
+    },
+    {
+      "id": "CTX-003",
+      "area": "Context",
+      "priority": "P0",
+      "phase": "01",
+      "requirement": "The user lives in a two-room rental with one friend and needs shared-home operations.",
+      "acceptance": "A household can contain the user and one roommate, while the schema remains extensible to more members."
+    },
+    {
+      "id": "CTX-004",
+      "area": "Context",
+      "priority": "P1",
+      "phase": "05",
+      "requirement": "Demo household inventory reflects chicken breast as a fixed lunch item and Monster drinks split between refrigerated and room-temperature storage.",
+      "acceptance": "Demo data includes chicken breast and Monster items in appropriate locations without treating all Monster cans as refrigerated."
+    },
+    {
+      "id": "CTX-005",
+      "area": "Context",
+      "priority": "P0",
+      "phase": "00",
+      "requirement": "The product is a student personal operating system, not an enterprise finance product.",
+      "acceptance": "UI language, density, onboarding, and feature scope remain simple and student-friendly."
+    },
+    {
+      "id": "CTX-006",
+      "area": "Context",
+      "priority": "P0",
+      "phase": "00",
+      "requirement": "The product must be mobile-first but fully usable on desktop as a responsive PWA.",
+      "acceptance": "Core journeys pass at 360px mobile width and desktop widths; installable PWA behavior is present where supported."
+    },
+    {
+      "id": "CORE-001",
+      "area": "Core IA",
+      "priority": "P0",
+      "phase": "00",
+      "requirement": "Primary navigation contains Home, Tutoring, Money, Household, and Settings.",
+      "acceptance": "All five top-level destinations exist and are reachable from persistent mobile/desktop navigation."
+    },
+    {
+      "id": "CORE-002",
+      "area": "Core IA",
+      "priority": "P0",
+      "phase": "00",
+      "requirement": "A global quick-add action supports lesson, income, expense, payment/deposit handling, inventory, and shared expense creation.",
+      "acceptance": "Quick-add is reachable in one tap/click and opens context-aware creation actions."
+    },
+    {
+      "id": "CORE-003",
+      "area": "Core IA",
+      "priority": "P0",
+      "phase": "00",
+      "requirement": "The app unifies tutoring work, cash movement, subscriptions, surplus allocation, and household operations without duplicating records.",
+      "acceptance": "Cross-module links use a single source record plus references rather than copied amounts."
+    },
+    {
+      "id": "CORE-004",
+      "area": "Core IA",
+      "priority": "P0",
+      "phase": "00",
+      "requirement": "Financial data distinguishes work performed, money receivable, planned obligation, and actual account movement.",
+      "acceptance": "Lesson, receivable, subscription occurrence/shared expense, and financial transaction are separate entities."
+    },
+    {
+      "id": "CORE-005",
+      "area": "Core IA",
+      "priority": "P1",
+      "phase": "07",
+      "requirement": "Money analytics include monthly cash flow, spending by category, tutoring income by student, effective hourly income, fixed/subscription costs, and asset trend.",
+      "acceptance": "Analytics page renders each metric from real domain queries with empty/loading/error states."
+    },
+    {
+      "id": "CORE-006",
+      "area": "Core IA",
+      "priority": "P1",
+      "phase": "09",
+      "requirement": "Settings include profile, categories, accounts, tutoring defaults, integrations, notifications, and data export/backup.",
+      "acceptance": "Each settings area has a functional page or explicitly labeled deferred adapter without dead controls."
+    },
+    {
+      "id": "CORE-007",
+      "area": "Core IA",
+      "priority": "P0",
+      "phase": "00",
+      "requirement": "All user-visible monetary values use integer KRW semantics and never floating-point arithmetic.",
+      "acceptance": "Database uses bigint or numeric integer amounts; TypeScript domain converters prevent precision loss."
+    },
+    {
+      "id": "CORE-008",
+      "area": "Core IA",
+      "priority": "P0",
+      "phase": "00",
+      "requirement": "All derived totals must have a single documented formula and automated tests.",
+      "acceptance": "Formula module and unit tests cover dashboard, settlement, subscription normalization, and surplus totals."
+    },
+    {
+      "id": "CORE-009",
+      "area": "Core IA",
+      "priority": "P0",
+      "phase": "00",
+      "requirement": "The app must have clear loading, empty, offline, stale-sync, and recoverable error states.",
+      "acceptance": "Every data surface provides accessible status feedback and safe retry behavior."
+    },
+    {
+      "id": "CORE-010",
+      "area": "Core IA",
+      "priority": "P0",
+      "phase": "00",
+      "requirement": "No production deployment, production database mutation, financial transfer, or investment trade occurs automatically.",
+      "acceptance": "External writes require explicit user action and production changes require explicit operator confirmation."
+    },
+    {
+      "id": "TUT-001",
+      "area": "Tutoring",
+      "priority": "P0",
+      "phase": "02",
+      "requirement": "Students have tutoring type SUBJECT or SCHOOL_RECORD (생기부).",
+      "acceptance": "Student form requires exactly one tutoring type and filters relevant fields."
+    },
+    {
+      "id": "TUT-002",
+      "area": "Tutoring",
+      "priority": "P0",
+      "phase": "02",
+      "requirement": "SUBJECT tutoring permits only Mathematics, Physics, or Chemistry.",
+      "acceptance": "UI, validation, database constraint, and tests reject every other subject."
+    },
+    {
+      "id": "TUT-003",
+      "area": "Tutoring",
+      "priority": "P0",
+      "phase": "02",
+      "requirement": "SCHOOL_RECORD tutoring has no academic subject value.",
+      "acceptance": "Subject is null and hidden for SCHOOL_RECORD; database check constraint enforces this."
+    },
+    {
+      "id": "TUT-004",
+      "area": "Tutoring",
+      "priority": "P0",
+      "phase": "02",
+      "requirement": "Each student has a default lesson mode of online video or in-person.",
+      "acceptance": "Student creation requires a default mode and conditionally requires location or Meet behavior."
+    },
+    {
+      "id": "TUT-005",
+      "area": "Tutoring",
+      "priority": "P0",
+      "phase": "02",
+      "requirement": "Each lesson copies the student's default mode but can override it for that lesson.",
+      "acceptance": "Changing a student's default does not mutate historical lessons."
+    },
+    {
+      "id": "TUT-006",
+      "area": "Tutoring",
+      "priority": "P0",
+      "phase": "02",
+      "requirement": "Lesson statuses are only SCHEDULED, COMPLETED, or CANCELLED; there is no makeup/보강 concept.",
+      "acceptance": "No enum, field, filter, badge, or workflow named makeup/보강 exists."
+    },
+    {
+      "id": "TUT-007",
+      "area": "Tutoring",
+      "priority": "P0",
+      "phase": "02",
+      "requirement": "Scheduled lessons support preparation notes and a lightweight preparation checklist.",
+      "acceptance": "Prep text/checklist can be edited before class and is visible on Home and lesson detail."
+    },
+    {
+      "id": "TUT-008",
+      "area": "Tutoring",
+      "priority": "P0",
+      "phase": "02",
+      "requirement": "Students support default fee amount and default lesson duration.",
+      "acceptance": "New lessons prefill amount/duration and allow per-lesson overrides without changing history."
+    },
+    {
+      "id": "TUT-009",
+      "area": "Tutoring",
+      "priority": "P0",
+      "phase": "02",
+      "requirement": "Recurring tutoring schedules capture weekday, start time, duration, timezone, and effective dates.",
+      "acceptance": "Schedule generation is deterministic across Asia/Seoul daylight/time boundaries and avoids duplicates."
+    },
+    {
+      "id": "TUT-010",
+      "area": "Tutoring",
+      "priority": "P0",
+      "phase": "02",
+      "requirement": "Online lessons can create a Google Calendar event and Google Meet conference.",
+      "acceptance": "Authorized users can create/sync an event and open its Meet URL from the app."
+    },
+    {
+      "id": "TUT-011",
+      "area": "Tutoring",
+      "priority": "P0",
+      "phase": "08",
+      "requirement": "Default Meet behavior generates unique conference data per lesson event; it must not copy conferenceData between unrelated events.",
+      "acceptance": "Calendar adapter uses conferenceData.createRequest with conferenceDataVersion=1 for each generated lesson event."
+    },
+    {
+      "id": "TUT-012",
+      "area": "Tutoring",
+      "priority": "P1",
+      "phase": "02",
+      "requirement": "A student may optionally store a manually supplied reusable Meet URL, clearly labeled as a user-managed exception.",
+      "acceptance": "Manual fixed URL is never represented as copied Google conferenceData and can be disabled per lesson."
+    },
+    {
+      "id": "TUT-013",
+      "area": "Tutoring",
+      "priority": "P0",
+      "phase": "02",
+      "requirement": "In-person students/lessons store a visit location and expose a location action instead of Meet.",
+      "acceptance": "Lesson card displays the correct action for its mode."
+    },
+    {
+      "id": "TUT-014",
+      "area": "Tutoring",
+      "priority": "P0",
+      "phase": "03",
+      "requirement": "Completing a lesson creates or updates exactly one receivable for the lesson amount.",
+      "acceptance": "The operation is idempotent and covered by a transaction/integration test."
+    },
+    {
+      "id": "TUT-015",
+      "area": "Tutoring",
+      "priority": "P0",
+      "phase": "03",
+      "requirement": "Lesson, receivable, and actual bank/financial transaction remain separate linked records.",
+      "acceptance": "Unpaid completed work is representable without fake income, and paid income is traceable to its receivable."
+    },
+    {
+      "id": "TUT-016",
+      "area": "Tutoring",
+      "priority": "P0",
+      "phase": "03",
+      "requirement": "Receivables support open, partially paid, paid, and void states plus allocations from one or more deposits.",
+      "acceptance": "Partial and combined payments reconcile correctly and never exceed amount due."
+    },
+    {
+      "id": "TUT-017",
+      "area": "Tutoring",
+      "priority": "P0",
+      "phase": "03",
+      "requirement": "Deposit matching suggests receivables using amount, payer/counterparty alias, student, and timing, but requires confirmation.",
+      "acceptance": "Suggested matches show evidence and confidence; no match is committed without explicit approval."
+    },
+    {
+      "id": "TUT-018",
+      "area": "Tutoring",
+      "priority": "P1",
+      "phase": "07",
+      "requirement": "Effective hourly income includes lesson time, preparation minutes, and travel minutes.",
+      "acceptance": "Student and lesson analytics show nominal and effective hourly rates using documented formulas."
+    },
+    {
+      "id": "TUT-019",
+      "area": "Tutoring",
+      "priority": "P0",
+      "phase": "02",
+      "requirement": "Student detail shows schedule, lesson history, monthly counts, earned amount, received amount, and outstanding receivables.",
+      "acceptance": "All figures reconcile to ledger/receivable records for selected month."
+    },
+    {
+      "id": "TUT-020",
+      "area": "Tutoring",
+      "priority": "P1",
+      "phase": "02",
+      "requirement": "Student records may store payer/deposit alias and operational notes, but no unnecessary sensitive school-record documents are uploaded in MVP.",
+      "acceptance": "MVP contains no document upload flow; notes are access-controlled and minimal."
+    },
+    {
+      "id": "MON-001",
+      "area": "Money",
+      "priority": "P0",
+      "phase": "03",
+      "requirement": "Money contains Overview, Accounts, Transactions, Receivables, Subscriptions, Grow, and Analytics.",
+      "acceptance": "Every destination exists with coherent cross-links."
+    },
+    {
+      "id": "MON-002",
+      "area": "Money",
+      "priority": "P0",
+      "phase": "03",
+      "requirement": "Accounts store institution, nickname, masked account number, type, currency, current balance, available balance, and last sync time.",
+      "acceptance": "Account list/detail exposes those fields without displaying a full account number."
+    },
+    {
+      "id": "MON-003",
+      "area": "Money",
+      "priority": "P0",
+      "phase": "03",
+      "requirement": "Account overview shows total included balance, per-account balance, monthly inflow, monthly outflow, and recent transactions.",
+      "acceptance": "Totals exclude hidden/excluded accounts and transfers are not counted as income or expense."
+    },
+    {
+      "id": "MON-004",
+      "area": "Money",
+      "priority": "P0",
+      "phase": "03",
+      "requirement": "Users can manually create income and expense records.",
+      "acceptance": "Validated forms persist, edit, and delete manual ledger entries with audit timestamps."
+    },
+    {
+      "id": "MON-005",
+      "area": "Money",
+      "priority": "P0",
+      "phase": "03",
+      "requirement": "Transaction kinds are INCOME, EXPENSE, or TRANSFER.",
+      "acceptance": "Every ledger row has one kind and transfer rows use a linked transfer group."
+    },
+    {
+      "id": "MON-006",
+      "area": "Money",
+      "priority": "P0",
+      "phase": "03",
+      "requirement": "Transfers between the user's accounts are excluded from income, expense, and spending analytics.",
+      "acceptance": "Moving 100,000 KRW from bank to investment leaves net worth unchanged and adds zero spending."
+    },
+    {
+      "id": "MON-007",
+      "area": "Money",
+      "priority": "P0",
+      "phase": "03",
+      "requirement": "Income categories include tutoring, scholarship, allowance, and other.",
+      "acceptance": "Default categories are seeded and user categories can be managed in Settings."
+    },
+    {
+      "id": "MON-008",
+      "area": "Money",
+      "priority": "P0",
+      "phase": "03",
+      "requirement": "Expense categories include food, cafe, transport, housing, shopping, education, subscription, household, and other.",
+      "acceptance": "Default categories are seeded and categorization appears in analytics."
+    },
+    {
+      "id": "MON-009",
+      "area": "Money",
+      "priority": "P0",
+      "phase": "03",
+      "requirement": "Transactions distinguish personal scope from household-linked scope.",
+      "acceptance": "Household links point to shared expense/settlement records while personal transactions remain private."
+    },
+    {
+      "id": "MON-010",
+      "area": "Money",
+      "priority": "P0",
+      "phase": "08",
+      "requirement": "Bank integrations are read-only in this product: account discovery/registration, balance inquiry, and transaction-history inquiry only.",
+      "acceptance": "No withdrawal, deposit-transfer, payment initiation, or credential collection UI is implemented."
+    },
+    {
+      "id": "MON-011",
+      "area": "Money",
+      "priority": "P0",
+      "phase": "03",
+      "requirement": "A BankProvider adapter supports MOCK, MANUAL_CSV, KFTC_TESTBED, and KFTC_PRODUCTION implementations.",
+      "acceptance": "MVP runs fully with mock/manual providers; testbed/prod are isolated behind the same interface."
+    },
+    {
+      "id": "MON-012",
+      "area": "Money",
+      "priority": "P0",
+      "phase": "08",
+      "requirement": "KFTC production mode remains disabled until institutional application, contract, eligibility, consent, and security requirements are satisfied.",
+      "acceptance": "Feature flag and operator documentation prevent accidental production activation."
+    },
+    {
+      "id": "MON-013",
+      "area": "Money",
+      "priority": "P0",
+      "phase": "03",
+      "requirement": "Manual CSV import is available as a fallback for transaction history before real bank onboarding.",
+      "acceptance": "Importer provides preview, duplicate detection, mapping, and rollback-safe commit."
+    },
+    {
+      "id": "MON-014",
+      "area": "Money",
+      "priority": "P0",
+      "phase": "03",
+      "requirement": "Imported bank transactions are idempotent using provider/external identifiers or a deterministic fingerprint.",
+      "acceptance": "Re-sync/re-import creates no duplicates."
+    },
+    {
+      "id": "MON-015",
+      "area": "Money",
+      "priority": "P0",
+      "phase": "03",
+      "requirement": "Transactions can be linked to receivables, subscription occurrences, shared expenses, settlements, and investment transfers without duplicate expense rows.",
+      "acceptance": "Each linkage is traceable and uniqueness constraints prevent duplicate payment linkage."
+    },
+    {
+      "id": "MON-016",
+      "area": "Money",
+      "priority": "P0",
+      "phase": "06",
+      "requirement": "The app distinguishes actual bank cash movement from economic responsibility in shared expenses.",
+      "acceptance": "A user paying 100% of rent but owing 50% sees cash outflow 100% and personal burden 50%, with the remainder receivable from roommate."
+    },
+    {
+      "id": "MON-017",
+      "area": "Money",
+      "priority": "P1",
+      "phase": "07",
+      "requirement": "Asset overview includes cash/account balances and tracked long-term investment value.",
+      "acceptance": "Total assets and component values reconcile and transfers do not change total assets."
+    },
+    {
+      "id": "MON-018",
+      "area": "Money",
+      "priority": "P1",
+      "phase": "09",
+      "requirement": "Account types may include bank, cash, card, investment, and other; card automation is not required in MVP.",
+      "acceptance": "Schema supports all types while UI labels unsupported sync modes honestly."
+    },
+    {
+      "id": "MON-019",
+      "area": "Money",
+      "priority": "P1",
+      "phase": "07",
+      "requirement": "Money analytics provide month selection and compare current month with a previous month.",
+      "acceptance": "Comparison uses consistent date boundaries and indicates incomplete current-month data."
+    },
+    {
+      "id": "MON-020",
+      "area": "Money",
+      "priority": "P0",
+      "phase": "03",
+      "requirement": "Earned but unpaid tutoring is shown separately from settled cash income and excluded from cash-based available surplus.",
+      "acceptance": "Outstanding receivables never inflate account balance or settled-income totals."
+    },
+    {
+      "id": "SUB-001",
+      "area": "Subscriptions",
+      "priority": "P0",
+      "phase": "04",
+      "requirement": "Money contains a dedicated Subscriptions area for recurring paid services.",
+      "acceptance": "Subscriptions is reachable from Money and dashboard cards link to filtered views."
+    },
+    {
+      "id": "SUB-002",
+      "area": "Subscriptions",
+      "priority": "P0",
+      "phase": "04",
+      "requirement": "Subscription dashboard shows normalized monthly total, projected annual total, upcoming renewals, trial endings, and unmatched/overdue occurrences.",
+      "acceptance": "All metrics are derived from active records and occurrence/payment status."
+    },
+    {
+      "id": "SUB-003",
+      "area": "Subscriptions",
+      "priority": "P0",
+      "phase": "04",
+      "requirement": "Subscription statuses include trial, active, paused, cancelled, and ended.",
+      "acceptance": "Status transitions preserve history and affect forecasts correctly."
+    },
+    {
+      "id": "SUB-004",
+      "area": "Subscriptions",
+      "priority": "P0",
+      "phase": "04",
+      "requirement": "Subscription categories include AI/software, cloud/storage, education, entertainment, communication, fitness, news, and other.",
+      "acceptance": "Default categories exist and are filterable."
+    },
+    {
+      "id": "SUB-005",
+      "area": "Subscriptions",
+      "priority": "P0",
+      "phase": "04",
+      "requirement": "Subscription details store provider/name, plan, amount, currency, billing cycle, start date, and next charge date.",
+      "acceptance": "Create/edit/detail flows expose and validate all fields."
+    },
+    {
+      "id": "SUB-006",
+      "area": "Subscriptions",
+      "priority": "P0",
+      "phase": "04",
+      "requirement": "Billing cycles support weekly, monthly, quarterly, half-yearly, yearly, and custom day interval.",
+      "acceptance": "Monthly-equivalent formula tests cover every cycle including leap/year boundary cases."
+    },
+    {
+      "id": "SUB-007",
+      "area": "Subscriptions",
+      "priority": "P0",
+      "phase": "04",
+      "requirement": "Subscriptions support trial end, cancel-by date, auto-renew flag, and reminder-day offsets.",
+      "acceptance": "Upcoming and trial-reminder queries use Asia/Seoul dates and avoid duplicate reminders."
+    },
+    {
+      "id": "SUB-008",
+      "area": "Subscriptions",
+      "priority": "P0",
+      "phase": "04",
+      "requirement": "Subscriptions can be personal or household scoped.",
+      "acceptance": "Household subscriptions require a household and are visible to active household members without exposing private account data."
+    },
+    {
+      "id": "SUB-009",
+      "area": "Subscriptions",
+      "priority": "P0",
+      "phase": "04",
+      "requirement": "A household subscription stores payer and responsibility splits independently.",
+      "acceptance": "50:50, one-person-all, and custom split presets produce exact integer KRW allocations."
+    },
+    {
+      "id": "SUB-010",
+      "area": "Subscriptions",
+      "priority": "P0",
+      "phase": "04",
+      "requirement": "Subscriptions may reference a payment account/card, transaction descriptor pattern, service URL, notes, and last-used date.",
+      "acceptance": "Optional fields are safe, editable, and not required for basic use."
+    },
+    {
+      "id": "SUB-011",
+      "area": "Subscriptions",
+      "priority": "P0",
+      "phase": "04",
+      "requirement": "Price history is retained when a subscription price changes.",
+      "acceptance": "Editing amount creates an effective-dated history row and preserves past forecasts/payments."
+    },
+    {
+      "id": "SUB-012",
+      "area": "Subscriptions",
+      "priority": "P0",
+      "phase": "04",
+      "requirement": "Each expected charge is a SubscriptionOccurrence distinct from an actual financial transaction.",
+      "acceptance": "Future dues exist before payment without creating fake bank spending."
+    },
+    {
+      "id": "SUB-013",
+      "area": "Subscriptions",
+      "priority": "P0",
+      "phase": "04",
+      "requirement": "Actual bank transactions can be matched to subscription occurrences using amount, descriptor, account, and date, with confirmation.",
+      "acceptance": "Confirmed match marks occurrence paid and does not generate a duplicate expense."
+    },
+    {
+      "id": "SUB-014",
+      "area": "Subscriptions",
+      "priority": "P0",
+      "phase": "04",
+      "requirement": "A paid household subscription creates or links one shared expense and its splits rather than duplicate household/money records.",
+      "acceptance": "One occurrence maps to at most one transaction and one shared expense."
+    },
+    {
+      "id": "SUB-015",
+      "area": "Subscriptions",
+      "priority": "P0",
+      "phase": "04",
+      "requirement": "Subscription calendar lists renewal dates and supports 7-day and 30-day filters.",
+      "acceptance": "Calendar/list views agree across month boundaries."
+    },
+    {
+      "id": "SUB-016",
+      "area": "Subscriptions",
+      "priority": "P1",
+      "phase": "04",
+      "requirement": "Users can manually mark keep, review, or cancel-candidate decisions and record last-used date.",
+      "acceptance": "The app never claims usage it cannot observe; decisions are explicitly user-entered."
+    },
+    {
+      "id": "SUB-017",
+      "area": "Subscriptions",
+      "priority": "P1",
+      "phase": "07",
+      "requirement": "Local-only insights may flag duplicate-category subscriptions or review candidates without recommending a specific commercial replacement.",
+      "acceptance": "Insight explains its rule and source records; it is dismissible and deterministic."
+    },
+    {
+      "id": "SUB-018",
+      "area": "Subscriptions",
+      "priority": "P0",
+      "phase": "07",
+      "requirement": "Unpaid confirmed subscription obligations due in the planning window reduce actual available surplus, while already paid charges are not subtracted twice.",
+      "acceptance": "Formula tests cover unpaid, matched, skipped, cancelled, and household split cases."
+    },
+    {
+      "id": "SUB-019",
+      "area": "Subscriptions",
+      "priority": "P0",
+      "phase": "04",
+      "requirement": "Cancellation/ending stops future occurrence generation but preserves historical occurrences and payments.",
+      "acceptance": "History remains visible and forecasts exclude post-end dates."
+    },
+    {
+      "id": "SUB-020",
+      "area": "Subscriptions",
+      "priority": "P1",
+      "phase": "09",
+      "requirement": "Subscription reminders are represented in-app first; push/email delivery is optional future work.",
+      "acceptance": "MVP has an in-app reminder center with no misleading unavailable notification toggle."
+    },
+    {
+      "id": "GROW-001",
+      "area": "Grow",
+      "priority": "P0",
+      "phase": "07",
+      "requirement": "Grow implements one simple student-level method: monthly surplus allocation and recurring long-term contribution tracking.",
+      "acceptance": "No stock picking, leverage, derivatives, auto-trading, or return guarantee appears."
+    },
+    {
+      "id": "GROW-002",
+      "area": "Grow",
+      "priority": "P0",
+      "phase": "07",
+      "requirement": "Grow separates safety reserve, long-term contribution, and flexible money.",
+      "acceptance": "Monthly plan and completion state show all three buckets."
+    },
+    {
+      "id": "GROW-003",
+      "area": "Grow",
+      "priority": "P0",
+      "phase": "07",
+      "requirement": "Investment funding is modeled as an inter-account transfer, not an expense.",
+      "acceptance": "Contribution transfer changes asset composition but not total assets or spending."
+    },
+    {
+      "id": "GROW-004",
+      "area": "Grow",
+      "priority": "P0",
+      "phase": "07",
+      "requirement": "Grow tracks planned and completed monthly contribution amounts.",
+      "acceptance": "A contribution can be pending, partially completed, completed, skipped, or cancelled."
+    },
+    {
+      "id": "GROW-005",
+      "area": "Grow",
+      "priority": "P0",
+      "phase": "07",
+      "requirement": "Actual available surplus is the primary decision metric.",
+      "acceptance": "Home and Grow display the same tested value for the selected planning period."
+    },
+    {
+      "id": "GROW-006",
+      "area": "Grow",
+      "priority": "P0",
+      "phase": "07",
+      "requirement": "Actual available surplus starts from settled cash inflows, not billed or unpaid tutoring work.",
+      "acceptance": "Open receivables are excluded until a linked payment transaction exists."
+    },
+    {
+      "id": "GROW-007",
+      "area": "Grow",
+      "priority": "P0",
+      "phase": "07",
+      "requirement": "Actual available surplus subtracts personal expenses, the user's economic share of household costs, unpaid confirmed subscription/fixed obligations in the window, and required safety-reserve top-up, without double counting.",
+      "acceptance": "Scenario tests document and verify every term."
+    },
+    {
+      "id": "GROW-008",
+      "area": "Grow",
+      "priority": "P0",
+      "phase": "07",
+      "requirement": "The app displays actual cash remaining separately from responsibility-adjusted available surplus.",
+      "acceptance": "Shared-expense prepayment/settlement scenarios show different but reconcilable figures."
+    },
+    {
+      "id": "GROW-009",
+      "area": "Grow",
+      "priority": "P0",
+      "phase": "07",
+      "requirement": "Grow tracks current cash assets and long-term investment value for visibility only.",
+      "acceptance": "Values are manual or account-derived and clearly timestamped."
+    },
+    {
+      "id": "GROW-010",
+      "area": "Grow",
+      "priority": "P0",
+      "phase": "07",
+      "requirement": "Investment guidance is educational and neutral, discloses possible principal loss, and never promises performance.",
+      "acceptance": "Copy review finds no guarantee, urgency, or personalized security recommendation."
+    },
+    {
+      "id": "GROW-011",
+      "area": "Grow",
+      "priority": "P1",
+      "phase": "07",
+      "requirement": "A fixed monthly amount or percentage-of-available-surplus rule can define the contribution plan.",
+      "acceptance": "Rules produce deterministic integer KRW planned amounts with a configurable cap."
+    },
+    {
+      "id": "GROW-012",
+      "area": "Grow",
+      "priority": "P1",
+      "phase": "09",
+      "requirement": "Brokerage execution is explicitly out of scope; completed contributions are confirmed manually or matched to transfer transactions.",
+      "acceptance": "There is no buy/sell endpoint or brokerage credential field."
+    },
+    {
+      "id": "HOM-001",
+      "area": "Household",
+      "priority": "P0",
+      "phase": "01",
+      "requirement": "Household is a separate shared data boundary from the user's private finance data.",
+      "acceptance": "Roommate can access shared household records but never the user's private accounts/transactions."
+    },
+    {
+      "id": "HOM-002",
+      "area": "Household",
+      "priority": "P0",
+      "phase": "01",
+      "requirement": "Household supports owner/member roles and invite/active/left membership states.",
+      "acceptance": "Invite acceptance and membership checks are enforced by RLS and tests."
+    },
+    {
+      "id": "HOM-003",
+      "area": "Household",
+      "priority": "P0",
+      "phase": "05",
+      "requirement": "Household overview shows shared monthly cost, user's share, roommate settlement balance, low-stock items, and cleaning status.",
+      "acceptance": "Cards link to filtered detail and reconcile to source rows."
+    },
+    {
+      "id": "HOM-004",
+      "area": "Household",
+      "priority": "P0",
+      "phase": "05",
+      "requirement": "Inventory items store name, quantity, unit, ownership, storage location, optional expiry, low-stock threshold, and notes.",
+      "acceptance": "Create/edit/detail flows and schema include every field."
+    },
+    {
+      "id": "HOM-005",
+      "area": "Household",
+      "priority": "P0",
+      "phase": "05",
+      "requirement": "Inventory ownership can be mine, roommate's, or shared, represented with member ownership rather than hard-coded labels.",
+      "acceptance": "UI renders friendly labels for the current two-person household and schema supports additional members."
+    },
+    {
+      "id": "HOM-006",
+      "area": "Household",
+      "priority": "P0",
+      "phase": "05",
+      "requirement": "Inventory storage locations are refrigerated, frozen, or room temperature.",
+      "acceptance": "List filters and validation use exactly those options in MVP."
+    },
+    {
+      "id": "HOM-007",
+      "area": "Household",
+      "priority": "P0",
+      "phase": "05",
+      "requirement": "Inventory quantity supports fast plus/minus adjustment with an audit-safe nonnegative result.",
+      "acceptance": "Concurrent adjustment test prevents lost updates and negative quantity."
+    },
+    {
+      "id": "HOM-008",
+      "area": "Household",
+      "priority": "P0",
+      "phase": "05",
+      "requirement": "Low-stock items can create a shopping-list item.",
+      "acceptance": "Action is idempotent and links shopping item to its inventory source."
+    },
+    {
+      "id": "HOM-009",
+      "area": "Household",
+      "priority": "P0",
+      "phase": "05",
+      "requirement": "Shopping items can be personal/member-owned or shared and can later link to a transaction/shared expense.",
+      "acceptance": "Purchased status and linkage do not duplicate financial records."
+    },
+    {
+      "id": "HOM-010",
+      "area": "Household",
+      "priority": "P0",
+      "phase": "05",
+      "requirement": "Cleaning tasks store title, area, assignee, recurrence, last completion, next due time, and active state.",
+      "acceptance": "Task creation and completion correctly advance the next due time."
+    },
+    {
+      "id": "HOM-011",
+      "area": "Household",
+      "priority": "P0",
+      "phase": "05",
+      "requirement": "Cleaning presents simple derived states: OK, due soon, and due/overdue.",
+      "acceptance": "State is calculated from now, next due, and warning lead time rather than manually drifting."
+    },
+    {
+      "id": "HOM-012",
+      "area": "Household",
+      "priority": "P0",
+      "phase": "05",
+      "requirement": "Marking cleaning complete records who/when and recalculates schedule.",
+      "acceptance": "Completion history is retained and next due is deterministic."
+    },
+    {
+      "id": "HOM-013",
+      "area": "Household",
+      "priority": "P0",
+      "phase": "06",
+      "requirement": "Shared expense categories include rent, management fee, electricity, gas, water, internet, household goods, shared groceries, subscription, and other.",
+      "acceptance": "All categories are available and appear in monthly totals."
+    },
+    {
+      "id": "HOM-014",
+      "area": "Household",
+      "priority": "P0",
+      "phase": "06",
+      "requirement": "Shared expenses store actual payer separately from responsibility splits.",
+      "acceptance": "Payer and split totals are independently editable before settlement."
+    },
+    {
+      "id": "HOM-015",
+      "area": "Household",
+      "priority": "P0",
+      "phase": "06",
+      "requirement": "Split presets support equal 50:50, user pays all, roommate pays all, and custom amounts/percentages.",
+      "acceptance": "Rounding assigns every KRW exactly once and split sum equals total."
+    },
+    {
+      "id": "HOM-016",
+      "area": "Household",
+      "priority": "P0",
+      "phase": "06",
+      "requirement": "Household settlement computes the net amount one member owes the other across expenses and prior settlements.",
+      "acceptance": "Pairwise netting test covers payer reversals, refunds, and partial settlements."
+    },
+    {
+      "id": "HOM-017",
+      "area": "Household",
+      "priority": "P0",
+      "phase": "06",
+      "requirement": "A bank deposit can be suggested and confirmed as a roommate settlement payment.",
+      "acceptance": "Confirmed allocation changes settlement status and retains transaction traceability."
+    },
+    {
+      "id": "HOM-018",
+      "area": "Household",
+      "priority": "P0",
+      "phase": "06",
+      "requirement": "Household costs affect Money analytics and Grow using the user's responsibility share, with reconciliation to actual cash paid/received.",
+      "acceptance": "No shared cost is omitted or counted twice in dashboard formulas."
+    },
+    {
+      "id": "HOM-019",
+      "area": "Household",
+      "priority": "P0",
+      "phase": "06",
+      "requirement": "A bank transaction can be classified as household shopping, housing, utility, or personal spending through a confirmation flow.",
+      "acceptance": "Classification creates/links the correct shared expense only after confirmation."
+    },
+    {
+      "id": "HOM-020",
+      "area": "Household",
+      "priority": "P1",
+      "phase": "09",
+      "requirement": "Barcode scanning and receipt OCR are explicitly deferred; manual inventory/shopping flows must be fast enough for MVP.",
+      "acceptance": "No fake OCR/barcode control exists in production UI."
+    },
+    {
+      "id": "DASH-001",
+      "area": "Home dashboard",
+      "priority": "P0",
+      "phase": "07",
+      "requirement": "Home shows today's lessons with student, tutoring type/subject, time, mode, preparation notes, and Meet/location action.",
+      "acceptance": "Today's schedule is ordered and each lesson card has the correct primary action."
+    },
+    {
+      "id": "DASH-002",
+      "area": "Home dashboard",
+      "priority": "P0",
+      "phase": "07",
+      "requirement": "Home shows monthly tutoring forecast from active recurring schedules, earned, received, and outstanding amounts separately.",
+      "acceptance": "Forecast is clearly labeled and reconciles to schedule/fee assumptions; earned, received, and outstanding match lesson/receivable/payment records; forecast is never treated as settled cash or available surplus."
+    },
+    {
+      "id": "DASH-003",
+      "area": "Home dashboard",
+      "priority": "P0",
+      "phase": "07",
+      "requirement": "Home shows total account balance, monthly settled income, and monthly expense.",
+      "acceptance": "Transfers and unpaid receivables are excluded from income/expense."
+    },
+    {
+      "id": "DASH-004",
+      "area": "Home dashboard",
+      "priority": "P0",
+      "phase": "07",
+      "requirement": "Home shows subscriptions due soon and trial endings.",
+      "acceptance": "Cards link to correctly filtered subscription views."
+    },
+    {
+      "id": "DASH-005",
+      "area": "Home dashboard",
+      "priority": "P0",
+      "phase": "07",
+      "requirement": "Home shows actual available surplus and current Grow plan status.",
+      "acceptance": "Values match Grow page and formulas."
+    },
+    {
+      "id": "DASH-006",
+      "area": "Home dashboard",
+      "priority": "P0",
+      "phase": "07",
+      "requirement": "Home shows refrigerator low-stock alerts, cleaning due state, and roommate settlement balance.",
+      "acceptance": "Each alert links to the source household module."
+    },
+    {
+      "id": "DASH-007",
+      "area": "Home dashboard",
+      "priority": "P0",
+      "phase": "07",
+      "requirement": "Home shows pending suggested matches for tutoring deposits, subscription charges, household expenses, and settlements.",
+      "acceptance": "Suggestions can be reviewed, accepted, or dismissed without silent mutation."
+    },
+    {
+      "id": "DASH-008",
+      "area": "Home dashboard",
+      "priority": "P0",
+      "phase": "07",
+      "requirement": "Home prioritizes actions required today rather than presenting a dense finance dashboard.",
+      "acceptance": "Mobile first viewport exposes today's actions before secondary analytics."
+    },
+    {
+      "id": "INT-001",
+      "area": "Integrations",
+      "priority": "P0",
+      "phase": "08",
+      "requirement": "Google integration uses OAuth with the minimum Calendar scopes required for selected behavior.",
+      "acceptance": "Consent screen/scopes are documented and tokens are server-only."
+    },
+    {
+      "id": "INT-002",
+      "area": "Integrations",
+      "priority": "P0",
+      "phase": "08",
+      "requirement": "Calendar event creation stores external event ID, calendar link, Meet URL, sync state, and last sync error.",
+      "acceptance": "Retry is idempotent using a stable app event identifier."
+    },
+    {
+      "id": "INT-003",
+      "area": "Integrations",
+      "priority": "P0",
+      "phase": "08",
+      "requirement": "Calendar deletion/cancellation behavior is explicit and never silently deletes a user's unrelated event.",
+      "acceptance": "Only events created or explicitly linked by the app can be mutated."
+    },
+    {
+      "id": "INT-004",
+      "area": "Integrations",
+      "priority": "P0",
+      "phase": "08",
+      "requirement": "KFTC balance and transaction-history calls use server-side access tokens and fintech-use numbers, never browser storage.",
+      "acceptance": "Threat model and implementation tests verify secrets are absent from client bundles/logs."
+    },
+    {
+      "id": "INT-005",
+      "area": "Integrations",
+      "priority": "P0",
+      "phase": "08",
+      "requirement": "KFTC transaction pagination handles the provider page limit and incremental sync safely.",
+      "acceptance": "Adapter follows next-page state and stops without duplicate or skipped records."
+    },
+    {
+      "id": "INT-006",
+      "area": "Integrations",
+      "priority": "P0",
+      "phase": "08",
+      "requirement": "All external adapters have mock implementations and contract tests.",
+      "acceptance": "The complete app can be demonstrated without real Google/KFTC credentials."
+    },
+    {
+      "id": "INT-007",
+      "area": "Integrations",
+      "priority": "P0",
+      "phase": "08",
+      "requirement": "Sync jobs expose last success, last attempt, stale status, and actionable error messages.",
+      "acceptance": "UI never presents stale balances as silently current."
+    },
+    {
+      "id": "INT-008",
+      "area": "Integrations",
+      "priority": "P0",
+      "phase": "08",
+      "requirement": "External API retries are bounded and idempotent with structured logging and redaction.",
+      "acceptance": "Tests cover timeout, rate limit, duplicate request, and provider error cases."
+    },
+    {
+      "id": "INT-009",
+      "area": "Integrations",
+      "priority": "P1",
+      "phase": "09",
+      "requirement": "Vercel deployment and Supabase migrations use preview/development environments before production.",
+      "acceptance": "Runbook requires preview verification and explicit production confirmation."
+    },
+    {
+      "id": "INT-010",
+      "area": "Integrations",
+      "priority": "P0",
+      "phase": "08",
+      "requirement": "Google Calendar integration is an app API integration; a personal Google Calendar Codex plugin is optional for developer workflow and is not an application dependency.",
+      "acceptance": "Application runs without any Codex connector installed."
+    },
+    {
+      "id": "UX-001",
+      "area": "UX",
+      "priority": "P0",
+      "phase": "09",
+      "requirement": "Korean is the only required UI language in MVP, with plain student-friendly copy.",
+      "acceptance": "No mixed-language production labels except unavoidable service names."
+    },
+    {
+      "id": "UX-002",
+      "area": "UX",
+      "priority": "P0",
+      "phase": "09",
+      "requirement": "Desktop uses a sidebar and mobile uses bottom navigation with a clear global add action.",
+      "acceptance": "Navigation remains reachable, keyboard accessible, and safe-area aware."
+    },
+    {
+      "id": "UX-003",
+      "area": "UX",
+      "priority": "P0",
+      "phase": "09",
+      "requirement": "Forms use progressive disclosure and conditional fields instead of enterprise-style dense screens.",
+      "acceptance": "Student, subscription, and shared-expense forms reveal only relevant fields."
+    },
+    {
+      "id": "UX-004",
+      "area": "UX",
+      "priority": "P0",
+      "phase": "09",
+      "requirement": "All destructive and cross-record linking actions require confirmation and explain effects.",
+      "acceptance": "Delete, cancel, match, settle, unlink, and regenerate actions have safe dialogs/undo where practical."
+    },
+    {
+      "id": "UX-005",
+      "area": "UX",
+      "priority": "P0",
+      "phase": "09",
+      "requirement": "Accessibility targets WCAG 2.2 AA for color contrast, focus, labels, semantics, and touch targets.",
+      "acceptance": "Automated accessibility checks pass and manual keyboard/screen-reader smoke checks are documented."
+    },
+    {
+      "id": "UX-006",
+      "area": "UX",
+      "priority": "P0",
+      "phase": "09",
+      "requirement": "Dates and money are formatted consistently with clear month filters and no timezone ambiguity.",
+      "acceptance": "All date formatting routes through shared utilities and tests."
+    },
+    {
+      "id": "UX-007",
+      "area": "UX",
+      "priority": "P0",
+      "phase": "09",
+      "requirement": "Charts are secondary to readable numbers and lists and have accessible text equivalents.",
+      "acceptance": "Every chart has a table/summary and works without color alone."
+    },
+    {
+      "id": "UX-008",
+      "area": "UX",
+      "priority": "P1",
+      "phase": "09",
+      "requirement": "PWA supports basic offline shell and read-only cached recent data, while writes require network and show pending state only if safely queued.",
+      "acceptance": "Offline behavior is honest and never pretends a financial write succeeded."
+    },
+    {
+      "id": "UX-009",
+      "area": "UX",
+      "priority": "P0",
+      "phase": "09",
+      "requirement": "No placeholder button may ship without either a working action or an explicit disabled/deferred explanation.",
+      "acceptance": "E2E crawl finds no dead interactive controls."
+    },
+    {
+      "id": "UX-010",
+      "area": "UX",
+      "priority": "P0",
+      "phase": "09",
+      "requirement": "Every page has empty-state guidance based on the user's next useful action.",
+      "acceptance": "New-account demo can reach a useful first record from each empty page."
+    },
+    {
+      "id": "SEC-001",
+      "area": "Security",
+      "priority": "P0",
+      "phase": "01",
+      "requirement": "Supabase Row Level Security is enabled on every user or household data table.",
+      "acceptance": "Automated RLS tests prove cross-user and nonmember access is denied."
+    },
+    {
+      "id": "SEC-002",
+      "area": "Security",
+      "priority": "P0",
+      "phase": "01",
+      "requirement": "Private finance rows are owner-only; household rows are available only to active household members.",
+      "acceptance": "Roommate cannot query accounts, private transactions, bank connections, or private subscriptions."
+    },
+    {
+      "id": "SEC-003",
+      "area": "Security",
+      "priority": "P0",
+      "phase": "08",
+      "requirement": "OAuth/bank refresh tokens and secrets are never stored in plaintext application tables or client-accessible environment variables.",
+      "acceptance": "Secrets use a server-side encrypted secret reference and are redacted from logs/errors."
+    },
+    {
+      "id": "SEC-004",
+      "area": "Security",
+      "priority": "P0",
+      "phase": "00",
+      "requirement": "Service-role keys, provider secrets, and PATs are excluded from version control and browser bundles.",
+      "acceptance": "Secret scanning and bundle checks pass; .env files are ignored."
+    },
+    {
+      "id": "SEC-005",
+      "area": "Security",
+      "priority": "P0",
+      "phase": "08",
+      "requirement": "External access follows least privilege and explicit consent, with disconnect/revoke controls.",
+      "acceptance": "Integrations page shows scopes/status and supports safe disconnect."
+    },
+    {
+      "id": "SEC-006",
+      "area": "Security",
+      "priority": "P0",
+      "phase": "09",
+      "requirement": "Sensitive student, household, and financial values are minimized in logs and analytics.",
+      "acceptance": "Structured logger redacts names, account identifiers, notes, and tokens by default."
+    },
+    {
+      "id": "SEC-007",
+      "area": "Security",
+      "priority": "P0",
+      "phase": "09",
+      "requirement": "Input validation, output encoding, CSRF/session protection, rate limits, and authorization checks apply to server mutations.",
+      "acceptance": "Security tests and review cover OWASP-relevant paths."
+    },
+    {
+      "id": "SEC-008",
+      "area": "Security",
+      "priority": "P0",
+      "phase": "09",
+      "requirement": "Data export and account deletion are available with explicit confirmation and retention behavior.",
+      "acceptance": "User can export owned/shared-relevant data and request deletion without orphaning required settlement history incorrectly."
+    },
+    {
+      "id": "SEC-009",
+      "area": "Security",
+      "priority": "P0",
+      "phase": "09",
+      "requirement": "The app documents that finance figures are informational and may be stale; it is not a bank, broker, tax adviser, or investment adviser.",
+      "acceptance": "Relevant screens and terms include concise disclaimers without obstructing normal use."
+    },
+    {
+      "id": "SEC-010",
+      "area": "Security",
+      "priority": "P0",
+      "phase": "09",
+      "requirement": "Development MCP tools are scoped to development/test projects and never connected to production financial or personal data by default.",
+      "acceptance": "MCP setup file defaults Supabase to project-scoped read-only and marks production prohibited."
+    },
+    {
+      "id": "SEC-011",
+      "area": "Security",
+      "priority": "P0",
+      "phase": "09",
+      "requirement": "Dependency, migration, and security scans run in CI before merge/deploy.",
+      "acceptance": "CI includes typecheck, lint, tests, build, migration checks, secret scan, and dependency/security review."
+    },
+    {
+      "id": "SEC-012",
+      "area": "Security",
+      "priority": "P0",
+      "phase": "09",
+      "requirement": "Every match/reconciliation decision retains an audit record of actor, timestamp, source, and prior/new linkage.",
+      "acceptance": "Audit history can explain why each receivable, subscription, shared expense, or settlement was marked paid."
+    },
+    {
+      "id": "FUT-001",
+      "area": "Backlog",
+      "priority": "P2",
+      "phase": "backlog",
+      "requirement": "Receipt OCR is a future enhancement, not MVP.",
+      "acceptance": "Tracked in backlog only."
+    },
+    {
+      "id": "FUT-002",
+      "area": "Backlog",
+      "priority": "P2",
+      "phase": "backlog",
+      "requirement": "Barcode scanning is a future enhancement, not MVP.",
+      "acceptance": "Tracked in backlog only."
+    },
+    {
+      "id": "FUT-003",
+      "area": "Backlog",
+      "priority": "P2",
+      "phase": "backlog",
+      "requirement": "AI-assisted transaction categorization and monthly reports are future enhancements and require explainability/confirmation.",
+      "acceptance": "Tracked in backlog only; no fake AI in MVP."
+    },
+    {
+      "id": "FUT-004",
+      "area": "Backlog",
+      "priority": "P2",
+      "phase": "backlog",
+      "requirement": "Broader budgets, fixed recurring income/expense rules, cards, and richer asset allocation are future enhancements.",
+      "acceptance": "Tracked in backlog only."
+    },
+    {
+      "id": "FUT-005",
+      "area": "Backlog",
+      "priority": "P2",
+      "phase": "backlog",
+      "requirement": "Push/email reminder delivery is future work after in-app reminders.",
+      "acceptance": "Tracked in backlog only."
+    },
+    {
+      "id": "FUT-006",
+      "area": "Backlog",
+      "priority": "P2",
+      "phase": "backlog",
+      "requirement": "No brokerage auto-execution or open-banking transfer initiation is planned for MVP.",
+      "acceptance": "Tracked as explicitly excluded unless separately redesigned and approved."
+    }
+  ]
+}

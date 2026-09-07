@@ -1,0 +1,33 @@
+# Student OS local secrets and generated state
+.env
+.env.local
+.env.*.local
+!.env.example
+.codex/config.toml.local
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Supabase local state
+.supabase/
+supabase/.branches/
+supabase/.temp/
+
+# Next.js / tests / reports
+.next/
+out/
+coverage/
+playwright-report/
+test-results/
+
+# Logs and local imports/exports
+*.log
+imports/private/
+exports/private/
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/settings.json
+.idea/

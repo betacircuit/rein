@@ -1,0 +1,36 @@
+# Student OS Codex MCP example
+# Copy only the sections you need into a trusted project's .codex/config.toml
+# or into ~/.codex/config.toml. Use DEVELOPMENT resources only.
+
+[mcp_servers.next_devtools]
+command = "npx"
+args = ["-y", "next-devtools-mcp@latest"]
+
+[mcp_servers.playwright]
+command = "npx"
+args = ["-y", "@playwright/mcp@latest", "--isolated"]
+
+[mcp_servers.shadcn]
+command = "npx"
+args = ["shadcn@latest", "mcp"]
+
+# Activate only after replacing the placeholder with a DEVELOPMENT project ref.
+# Keep read_only=true until a reviewed task truly needs a dev write.
+# [mcp_servers.supabase]
+# url = "https://mcp.supabase.com/mcp?project_ref=REPLACE_WITH_DEV_PROJECT_REF&read_only=true"
+
+# Alternative while local Supabase is running:
+# [mcp_servers.supabase_local]
+# url = "http://127.0.0.1:54321/mcp"
+
+# Optional only when OpenAI API functionality is being implemented.
+# [mcp_servers.openaiDeveloperDocs]
+# url = "https://developers.openai.com/mcp"
+
+# Add only in Phase 09 and authorize a Preview/development scope.
+# [mcp_servers.vercel]
+# url = "https://mcp.vercel.com"
+
+# GitHub MCP is intentionally omitted from the default config because Codex can
+# edit the local repository without it. Add the official server only for remote
+# issues/PR/Actions with a minimal-scope token and read-only mode first.

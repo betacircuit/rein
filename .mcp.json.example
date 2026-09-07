@@ -1,0 +1,21 @@
+{
+  "mcpServers": {
+    "next-devtools": {
+      "command": "npx",
+      "args": ["-y", "next-devtools-mcp@latest"]
+    },
+    "playwright": {
+      "command": "npx",
+      "args": ["-y", "@playwright/mcp@latest", "--isolated"]
+    },
+    "shadcn": {
+      "command": "npx",
+      "args": ["shadcn@latest", "mcp"]
+    },
+    "supabase-development-readonly": {
+      "type": "http",
+      "url": "https://mcp.supabase.com/mcp?project_ref=%3Cdevelopment-project-ref%3E&read_only=true&features=database%2Cdocs"
+    }
+  },
+  "_studentOsSafety": "PRODUCTION PROHIBITED: replace the placeholder only with a development/test project ref; keep read_only=true and never expose real student, household, or financial data."
+}

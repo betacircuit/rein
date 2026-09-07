@@ -1,0 +1,60 @@
+%% Student OS logical ERD. This diagram intentionally separates operational obligations from actual cash movement.
+erDiagram
+    AUTH_USERS ||--|| PROFILES : "owns"
+    AUTH_USERS ||--o{ HOUSEHOLDS : "creates"
+    HOUSEHOLDS ||--o{ HOUSEHOLD_MEMBERS : "contains"
+    AUTH_USERS ||--o{ HOUSEHOLD_MEMBERS : "joins"
+
+    AUTH_USERS ||--o{ EXTERNAL_CONNECTIONS : "authorizes"
+    EXTERNAL_CONNECTIONS ||--o{ SYNC_RUNS : "records"
+
+    AUTH_USERS ||--o{ STUDENTS : "tutors"
+    STUDENTS ||--o{ TUTORING_SCHEDULES : "has templates"
+    STUDENTS ||--o{ LESSONS : "attends"
+    TUTORING_SCHEDULES o|--o{ LESSONS : "materializes"
+    LESSONS ||--o{ LESSON_PREP_ITEMS : "prepares"
+    LESSONS ||--o| RECEIVABLES : "completion creates"
+
+    AUTH_USERS ||--o{ ACCOUNTS : "owns"
+    ACCOUNTS ||--o{ FINANCIAL_TRANSACTIONS : "contains"
+    TRANSACTION_CATEGORIES ||--o{ FINANCIAL_TRANSACTIONS : "classifies"
+    RECEIVABLES ||--o{ RECEIVABLE_ALLOCATIONS : "is paid by"
+    FINANCIAL_TRANSACTIONS ||--o{ RECEIVABLE_ALLOCATIONS : "allocates"
+
+    AUTH_USERS ||--o{ SUBSCRIPTIONS : "owns"
+    HOUSEHOLDS o|--o{ SUBSCRIPTIONS : "shares"
+    SUBSCRIPTIONS ||--o{ SUBSCRIPTION_SPLITS : "assigns responsibility"
+    HOUSEHOLD_MEMBERS ||--o{ SUBSCRIPTION_SPLITS : "owes"
+    SUBSCRIPTIONS ||--o{ SUBSCRIPTION_PRICE_HISTORY : "changes price"
+    SUBSCRIPTIONS ||--o{ SUBSCRIPTION_OCCURRENCES : "generates obligations"
+    SUBSCRIPTION_OCCURRENCES o|--o| FINANCIAL_TRANSACTIONS : "matched to charge"
+
+    HOUSEHOLDS ||--o{ INVENTORY_ITEMS : "stores"
+    HOUSEHOLD_MEMBERS o|--o{ INVENTORY_ITEMS : "owns"
+    INVENTORY_ITEMS o|--o{ SHOPPING_ITEMS : "low stock creates"
+    HOUSEHOLDS ||--o{ SHOPPING_ITEMS : "needs"
+
+    HOUSEHOLDS ||--o{ CLEANING_TASKS : "schedules"
+    HOUSEHOLD_MEMBERS o|--o{ CLEANING_TASKS : "assigned"
+    CLEANING_TASKS ||--o{ CLEANING_COMPLETIONS : "history"
+    HOUSEHOLD_MEMBERS ||--o{ CLEANING_COMPLETIONS : "completes"
+
+    HOUSEHOLDS ||--o{ SHARED_EXPENSES : "incurs"
+    HOUSEHOLD_MEMBERS ||--o{ SHARED_EXPENSES : "pays"
+    SHARED_EXPENSES ||--o{ SHARED_EXPENSE_SPLITS : "divides exactly"
+    HOUSEHOLD_MEMBERS ||--o{ SHARED_EXPENSE_SPLITS : "is responsible"
+    FINANCIAL_TRANSACTIONS o|--o| SHARED_EXPENSES : "proves payment"
+    SUBSCRIPTION_OCCURRENCES o|--o| SHARED_EXPENSES : "creates once"
+
+    HOUSEHOLDS ||--o{ SETTLEMENTS : "nets balances"
+    HOUSEHOLD_MEMBERS ||--o{ SETTLEMENTS : "sends or receives"
+    FINANCIAL_TRANSACTIONS o|--o| SETTLEMENTS : "confirms cash"
+
+    AUTH_USERS ||--o{ GROW_PLANS : "sets"
+    AUTH_USERS ||--o{ INVESTMENT_CONTRIBUTIONS : "plans"
+    ACCOUNTS o|--o{ INVESTMENT_CONTRIBUTIONS : "receives transfer"
+
+    FINANCIAL_TRANSACTIONS ||--o{ MATCH_SUGGESTIONS : "provides evidence"
+    AUTH_USERS ||--o{ MATCH_SUGGESTIONS : "reviews"
+    AUTH_USERS ||--o{ AUDIT_EVENTS : "acts"
+    HOUSEHOLDS o|--o{ AUDIT_EVENTS : "scopes"

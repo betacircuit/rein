@@ -1,0 +1,257 @@
+{
+  "description": "Synthetic demo fixture; no real bank/student data.",
+  "locale": "ko-KR",
+  "currency": "KRW",
+  "timezone": "Asia/Seoul",
+  "profile": {
+    "display_name": "최재원",
+    "school": "서울대학교",
+    "major": "전기정보공학부",
+    "academic_year": 2
+  },
+  "household": {
+    "name": "우리집",
+    "home_type": "two_room_rental",
+    "members": [
+      {
+        "key": "me",
+        "display_name": "최재원",
+        "role": "owner",
+        "status": "active"
+      },
+      {
+        "key": "roommate",
+        "display_name": "친구",
+        "role": "member",
+        "status": "active"
+      }
+    ]
+  },
+  "students": [
+    {
+      "key": "student_math",
+      "name": "김OO",
+      "tutoring_type": "subject",
+      "subject": "math",
+      "default_mode": "online",
+      "default_fee_amount": 60000,
+      "default_duration_minutes": 120,
+      "meet_strategy": "google_generated",
+      "payer_aliases": [
+        "김OO부",
+        "김OO모"
+      ]
+    },
+    {
+      "key": "student_record",
+      "name": "박OO",
+      "tutoring_type": "school_record",
+      "subject": null,
+      "default_mode": "online",
+      "default_fee_amount": 50000,
+      "default_duration_minutes": 60,
+      "meet_strategy": "google_generated",
+      "payer_aliases": [
+        "박OO부"
+      ]
+    },
+    {
+      "key": "student_physics",
+      "name": "이OO",
+      "tutoring_type": "subject",
+      "subject": "physics",
+      "default_mode": "in_person",
+      "default_location": "학생 자택(데모)",
+      "default_fee_amount": 70000,
+      "default_duration_minutes": 120,
+      "meet_strategy": "none"
+    }
+  ],
+  "lesson_examples": [
+    {
+      "student_key": "student_math",
+      "status": "scheduled",
+      "mode": "online",
+      "amount": 60000,
+      "prep_notes": "미적분 숙제 확인 후 오답 3문제 설명",
+      "prep_items": [
+        "숙제 채점",
+        "수능특강 p.45~52",
+        "지난 수업 오답 3문제"
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "key": "living",
+      "institution_name": "데모은행",
+      "nickname": "생활비",
+      "account_type": "checking",
+      "masked_account_number": "***-**-1234",
+      "provider": "mock",
+      "current_balance": 1240300
+    },
+    {
+      "key": "tutoring",
+      "institution_name": "데모뱅크",
+      "nickname": "과외비",
+      "account_type": "checking",
+      "masked_account_number": "***-**-5678",
+      "provider": "mock",
+      "current_balance": 2781130
+    },
+    {
+      "key": "reserve",
+      "institution_name": "데모은행",
+      "nickname": "비상금",
+      "account_type": "savings",
+      "masked_account_number": "***-**-9012",
+      "provider": "mock",
+      "current_balance": 800000
+    },
+    {
+      "key": "long_term",
+      "institution_name": "데모증권",
+      "nickname": "장기 적립",
+      "account_type": "investment",
+      "masked_account_number": "***-**-3456",
+      "provider": "mock",
+      "current_balance": 1500000
+    }
+  ],
+  "subscriptions": [
+    {
+      "name": "AI 학습 도구",
+      "provider_name": "데모 AI",
+      "plan_name": "개인 월간",
+      "category": "ai_software",
+      "status": "active",
+      "amount": 29000,
+      "billing_cycle": "monthly",
+      "scope": "private",
+      "decision": "keep"
+    },
+    {
+      "name": "공용 클라우드",
+      "provider_name": "데모 클라우드",
+      "plan_name": "가족형",
+      "category": "cloud_storage",
+      "status": "active",
+      "amount": 12000,
+      "billing_cycle": "monthly",
+      "scope": "household",
+      "payer_member_key": "me",
+      "split_basis_points": {
+        "me": 5000,
+        "roommate": 5000
+      },
+      "decision": "review"
+    },
+    {
+      "name": "온라인 강의",
+      "provider_name": "데모 교육",
+      "plan_name": "연간",
+      "category": "education",
+      "status": "trial",
+      "amount": 120000,
+      "billing_cycle": "yearly",
+      "scope": "private",
+      "decision": "review"
+    }
+  ],
+  "inventory": [
+    {
+      "name": "닭가슴살",
+      "quantity": 8,
+      "unit": "개",
+      "owner_kind": "member",
+      "owner_member_key": "me",
+      "storage_location": "frozen",
+      "low_stock_threshold": 3,
+      "notes": "점심 고정 식재료"
+    },
+    {
+      "name": "몬스터",
+      "quantity": 3,
+      "unit": "캔",
+      "owner_kind": "member",
+      "owner_member_key": "me",
+      "storage_location": "refrigerated",
+      "low_stock_threshold": 1,
+      "notes": "마실 만큼만 냉장"
+    },
+    {
+      "name": "몬스터",
+      "quantity": 9,
+      "unit": "캔",
+      "owner_kind": "member",
+      "owner_member_key": "me",
+      "storage_location": "room_temperature",
+      "low_stock_threshold": 3,
+      "notes": "나머지 상온 보관"
+    },
+    {
+      "name": "계란",
+      "quantity": 10,
+      "unit": "개",
+      "owner_kind": "shared",
+      "storage_location": "refrigerated",
+      "low_stock_threshold": 4
+    }
+  ],
+  "cleaning_tasks": [
+    {
+      "title": "화장실 청소",
+      "area": "화장실",
+      "assignee_member_key": "roommate",
+      "recurrence": "interval_days",
+      "recurrence_interval_days": 7,
+      "due_soon_days": 2
+    },
+    {
+      "title": "거실 청소",
+      "area": "거실",
+      "assignee_member_key": "me",
+      "recurrence": "interval_days",
+      "recurrence_interval_days": 7,
+      "due_soon_days": 2
+    },
+    {
+      "title": "음식물 쓰레기",
+      "area": "주방",
+      "assignee_member_key": null,
+      "recurrence": "interval_days",
+      "recurrence_interval_days": 2,
+      "due_soon_days": 1
+    }
+  ],
+  "shared_expense_examples": [
+    {
+      "description": "월세",
+      "category": "rent",
+      "amount": 700000,
+      "payer_member_key": "me",
+      "split_amounts": {
+        "me": 350000,
+        "roommate": 350000
+      }
+    },
+    {
+      "description": "인터넷",
+      "category": "internet",
+      "amount": 30000,
+      "payer_member_key": "me",
+      "split_amounts": {
+        "me": 15000,
+        "roommate": 15000
+      }
+    }
+  ],
+  "grow_plan": {
+    "rule_kind": "fixed_amount",
+    "fixed_contribution_amount": 200000,
+    "safety_reserve_target": 1000000,
+    "reserve_account_key": "reserve",
+    "investment_account_key": "long_term"
+  }
+}

@@ -1,0 +1,57 @@
+agent:
+  name: RAINY
+  role: site_ui_operator
+  language: ko-KR
+  style: concise
+
+mission:
+  - Read only the visible application state needed for the current request.
+  - Navigate through allowlisted internal routes.
+  - Fill safe form fields without submitting them.
+  - Scroll and trigger allowlisted, non-destructive UI controls.
+  - Keep user interaction minimal while making every action observable.
+
+permission_boundary:
+  default: deny
+  allow:
+    - read_visible_site_state
+    - navigate_allowlisted_internal_routes
+    - fill_non_secret_fields
+    - scroll_document
+    - activate_non_submit_non_destructive_controls
+    - manage_today_tasks
+    - create_tutoring_schedule_via_validated_server_action
+  deny:
+    - /api/settings/*
+    - arbitrary_api_requests
+    - environment_tokens
+    - api_keys_and_secrets
+    - admin_security_panels
+    - hidden_or_password_fields
+    - form_submission_by_dom_automation
+    - destructive_controls
+  denied_response: "ACCESS DENIED: RESTRICTED DOMAIN"
+
+execution:
+  router: deterministic_allowlist
+  arbitrary_selectors: false
+  arbitrary_urls: false
+  javascript_evaluation: false
+  confirmations_required_for:
+    - destructive_changes
+    - money_movement
+    - external_side_effects
+
+conversation:
+  provider: groq
+  model: llama-3.3-70b-versatile
+  model_output_can_execute: false
+  credential_storage: encrypted_http_only_session_cookie
+
+visual_state:
+  idle: awaiting_command
+  thinking: parsing_intent
+  executing: running_allowlisted_action
+  blocked: permission_boundary_triggered
+  precipitation: active_task_workload_or_response_payload
+  lightning: site_control_or_api_execution

@@ -1,0 +1,56 @@
+%% Student OS primary domain flows
+flowchart TD
+  subgraph Tutoring[과외 수입 흐름]
+    S[학생 SUBJECT 또는 SCHOOL_RECORD] --> L[예정 수업]
+    L --> P[준비 노트와 체크리스트]
+    L -->|ONLINE| G[Google Calendar 이벤트 + 수업별 고유 Meet]
+    L -->|OFFLINE| O[대면 장소 액션]
+    L -->|완료, idempotent| R[수업당 Receivable 1개]
+    BT[실제 입금 Transaction] --> M[매칭 제안: 금액·별칭·날짜]
+    R --> M
+    M -->|사용자 확인| A[Receivable Allocation]
+    A --> RS[OPEN / PARTIAL / PAID]
+  end
+
+  subgraph Subscription[구독 흐름]
+    SC[구독 계약] --> SO[예상 결제 Occurrence]
+    PH[가격 이력] --> SO
+    SO --> SM[실제 출금 매칭 제안]
+    ST[실제 출금 Transaction] --> SM
+    SM -->|사용자 확인| SP[PAID 상태 및 연결]
+    SO -->|HOUSEHOLD 범위, 정확히 1회| SE[Shared Expense]
+  end
+
+  subgraph Household[자취방 공동비 흐름]
+    HE[공동비] --> PAY[실제 결제자]
+    HE --> SPLIT[부담 분할: 50:50 / 한 명 전부 / custom]
+    SPLIT --> NET[멤버별 순정산]
+    PAY --> NET
+    NET --> SET[Settlement]
+    SET -->|입출금 확인| SETTX[실제 Transaction 연결]
+  end
+
+  subgraph InventoryCleaning[자취 운영]
+    INV[냉장·냉동·상온 재고] -->|기준 이하| SHOP[장보기 항목]
+    SHOP -->|공용 구매| SE2[Shared Expense 또는 Transaction 연결]
+    CT[청소 주기] --> STATUS[괜찮음 / 곧 해야 함 / 해야 함]
+    STATUS -->|완료| HIST[완료 이력 + 다음 예정일]
+  end
+
+  subgraph Grow[월 잉여금 굴리기]
+    CASH[실제 현금 수입] --> SURPLUS[실제 가용 잉여금]
+    PE[개인지출] --> SURPLUS
+    HB[내 공동비 부담분] --> SURPLUS
+    OBL[미납 확정 구독·고정의무] --> SURPLUS
+    RES[안전자금 보충] --> SURPLUS
+    SURPLUS --> FLEX[자유자금]
+    SURPLUS --> SAFE[안전자금]
+    SURPLUS --> PLAN[장기 적립 계획]
+    PLAN -->|실행 시| XFER[내 계좌 간 2-leg TRANSFER]
+    XFER -->|지출 아님| ASSET[총자산 유지]
+  end
+
+  R -. 미수는 현금 아님 .-> SURPLUS
+  SE --> HB
+  SE2 --> HB
+  ST --> CASH

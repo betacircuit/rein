@@ -1,0 +1,33 @@
+# dependencies
+/node_modules
+
+# Next.js
+/.next/
+/out/
+
+# test output
+/coverage/
+/playwright-report/
+/test-results/
+/artifacts/
+
+# local Supabase runtime
+/supabase/.branches/
+/supabase/.temp/
+
+# local environment and secrets
+.env*
+!.env.example
+!.env.*.example
+
+# local tooling
+*.log
+graphify-out/
+.DS_Store
+Thumbs.db
+tsconfig.tsbuildinfo
+
+# editor
+.idea/
+.vscode/*
+!.vscode/extensions.json

@@ -1,0 +1,3 @@
+-- Phase 00 intentionally keeps database seeding empty.
+-- Credential-free UI fixtures live in src/lib/demo-data.ts until authenticated
+-- profile and household boundaries are implemented in Phase 01.
