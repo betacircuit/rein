@@ -1,3 +1,48 @@
+@import "tailwindcss";
+
+:root {
+  --canvas: #ffffff;
+  --surface: #f2efe7;
+  --surface-muted: #d7d3c9;
+  --ink: #000000;
+  --ink-soft: #454158;
+  --muted-ink: #595568;
+  --line: #000000;
+  --line-strong: #000000;
+  --accent: #bc47cf;
+  --accent-strong: #a636bb;
+  --accent-dark: #000000;
+  --accent-ink: #000000;
+  --accent-wash: #d981e7;
+  --cyan: #2fc0cf;
+  --orange: #f45d18;
+  --magenta: #bc47cf;
+  --signal: #61e796;
+  --focus: #3114e8;
+  --success: #138752;
+  --info-wash: #9eeaf4;
+  --info-line: #101010;
+  --info-ink: #101010;
+  --danger: #db2c1f;
+  --danger-wash: #ff9a8f;
+  --danger-line: #101010;
+  --danger-ink: #101010;
+  --success-wash: #9cf0bb;
+  --success-line: #101010;
+  --success-ink: #101010;
+  --warning-wash: #ffd35a;
+  --warning-soft: #ffe48f;
+  --warning-line: #101010;
+  --warning-ink: #101010;
+  --shadow-soft: 5px 5px 0 #000000;
+  --hard-shadow: 8px 8px 0 #000000;
+}
+
+@theme inline {
+  --font-sans: var(--font-plex-korean), "Noto Sans KR", Arial, sans-serif;
+  --font-mono: var(--font-plex-mono), "D2Coding", Consolas, monospace;
+}
+
 *,
 *::before,
 *::after {
@@ -984,6 +1029,9 @@ a:focus-visible {
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+}
+
 .rein-backdrop {
   position: fixed;
   inset: 0;
@@ -1466,6 +1514,9 @@ a:focus-visible {
   .rainy-weather {
     height: 13rem;
   }
+}
+
+@media (prefers-reduced-motion: reduce) {
 }
 
 /* RAINY site operator */

@@ -76,8 +76,21 @@ export async function readRemoteMoneyData() {
       .order("occurred_at", { ascending: false })
       .limit(200),
   ]);
-  if (accountsResult.error || categoriesResult.error || transactionsResult.error)
-    throw new Error("수입·지출 데이터를 불러오지 못했습니다.");
+  const failed = (
+    [
+      ["accounts", accountsResult.error],
+      ["transaction_categories", categoriesResult.error],
+      ["financial_transactions", transactionsResult.error],
+    ] as const
+  ).filter(([, error]) => error);
+  if (failed.length > 0) {
+    // Naming the table and the driver message turns "화면을 불러오지 못했어요" into
+    // something diagnosable, e.g. a column missing because a migration is behind.
+    const detail = failed
+      .map(([table, error]) => `${table}: ${error?.code ?? ""} ${error?.message ?? ""}`.trim())
+      .join(" / ");
+    throw new Error(`수입·지출 데이터를 불러오지 못했습니다. (${detail})`);
+  }
   const accounts: RemoteAccount[] = (accountsResult.data ?? []).map((row) => ({
     id: String(row.id),
     nickname: String(row.nickname),

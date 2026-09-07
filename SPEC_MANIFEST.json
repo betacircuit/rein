@@ -2,7 +2,7 @@
   "project": "rein",
   "artifact_kind": "codex-full-build-specification-pack",
   "version": "1.0.0",
-  "generated_at": "2026-09-07T16:24:36.583Z",
+  "generated_at": "2026-09-07T18:14:24.707Z",
   "locale": "ko-KR",
   "currency": "KRW",
   "timezone": "Asia/Seoul",
@@ -216,9 +216,9 @@
     },
     {
       "path": ".next-dev.log",
-      "bytes": 28584,
-      "lines": 406,
-      "sha256": "4697a90b8afbfd4e2f6a65a8f23c91759b7a779ae4733e47886324fac22b4acf"
+      "bytes": 30495,
+      "lines": 436,
+      "sha256": "174d9961630ca422680860d0d61eb666b3b9270f6f4c0c77a12d8269b81d281b"
     },
     {
       "path": ".prettierignore",
@@ -738,9 +738,9 @@
     },
     {
       "path": "src/app/globals.css",
-      "bytes": 77871,
-      "lines": 3899,
-      "sha256": "03b7da369cd3230df81b116278121787e8df2345cc025b081ea0faf818f1be24"
+      "bytes": 79021,
+      "lines": 3950,
+      "sha256": "74e0972ee5a4f0f317f210d014841d99aa05332037352ff000e22d22975f0ce8"
     },
     {
       "path": "src/app/home/page.tsx",
@@ -1740,9 +1740,9 @@
     },
     {
       "path": "src/lib/money/remote-repository.ts",
-      "bytes": 5061,
-      "lines": 141,
-      "sha256": "d67bd1a9b06a53438604051f7b14cd02b9767ab5f8853a66c8e4bae45a3c0b14"
+      "bytes": 5577,
+      "lines": 154,
+      "sha256": "2afacc4aa6bb5bfa25ac5461d86f417e93f7e02f974e0b78e4bbf895e7e94585"
     },
     {
       "path": "src/lib/rainy/command.test.ts",
@@ -1982,7 +1982,7 @@
       "path": "supabase/.temp/cli-latest",
       "bytes": 8,
       "lines": 1,
-      "sha256": "777fd6d651101226cf5d67775d803518c5e94912772c3f936a458353b58ec9d1"
+      "sha256": "103e9d7a97f9a66c28586ffae6f8d81a90630d5cb2c537b23ed886a5e0e5ff01"
     },
     {
       "path": "supabase/.temp/gotrue-version",
