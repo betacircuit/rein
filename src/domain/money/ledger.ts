@@ -1,23 +1,5 @@
 import { toKrw, type Krw } from "@/domain/money/krw";
 
-export const incomeCategoryCodes = [
-  "tutoring",
-  "scholarship",
-  "allowance",
-  "other_income",
-] as const;
-export const expenseCategoryCodes = [
-  "food",
-  "cafe",
-  "transport",
-  "housing",
-  "shopping",
-  "education",
-  "subscription",
-  "household",
-  "other_expense",
-] as const;
-
 export type TransactionKind = "income" | "expense" | "transfer";
 export type TransactionDirection = "inflow" | "outflow";
 export type TransactionSource = "manual" | "mock_sync" | "manual_csv" | "bank_sync" | "system";
@@ -262,17 +244,6 @@ export function ensureLessonReceivable(input: {
     updatedAt: input.now,
   };
   return { ...input.state, receivables: [...input.state.receivables, receivable] };
-}
-
-export function deriveLessonFinances(state: MoneyState) {
-  return state.receivables.map((receivable) => {
-    const { paid, remaining } = receivableBalance(receivable, state.allocations);
-    return {
-      lessonId: receivable.lessonId,
-      receivedAmount: paid,
-      outstandingAmount: receivable.status === "void" ? toKrw(0) : remaining,
-    };
-  });
 }
 
 function statusFor(

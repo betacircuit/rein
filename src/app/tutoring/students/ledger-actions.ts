@@ -30,7 +30,10 @@ export async function recordStudentLessonAction(
     prepNotes: formData.get("prepNotes") || "",
   });
   if (!parsed.success) {
-    return { status: "error", message: parsed.error.issues[0]?.message ?? "입력값을 확인해 주세요." };
+    return {
+      status: "error",
+      message: parsed.error.issues[0]?.message ?? "입력값을 확인해 주세요.",
+    };
   }
   const auth = await requireSupabaseUser();
   if (!auth) return { status: "error", message: "다시 로그인해 주세요." };
@@ -108,7 +111,10 @@ export async function recordStudentDepositAction(
     memo: formData.get("memo") || "",
   });
   if (!parsed.success) {
-    return { status: "error", message: parsed.error.issues[0]?.message ?? "입력값을 확인해 주세요." };
+    return {
+      status: "error",
+      message: parsed.error.issues[0]?.message ?? "입력값을 확인해 주세요.",
+    };
   }
   const auth = await requireSupabaseUser();
   if (!auth) return { status: "error", message: "다시 로그인해 주세요." };

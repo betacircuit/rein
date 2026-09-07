@@ -32,22 +32,6 @@ export const accountTypeLabel = {
   investment: "투자",
   other: "기타",
 } as const;
-export const categoryLabel: Record<string, string> = {
-  tutoring: "과외",
-  scholarship: "장학금",
-  allowance: "용돈",
-  other_income: "기타 수입",
-  food: "식비",
-  cafe: "카페",
-  transport: "교통",
-  housing: "주거",
-  shopping: "쇼핑",
-  education: "교육",
-  subscription: "구독",
-  household: "자취방",
-  other_expense: "기타 지출",
-};
-
 const links = [
   { href: "/money", label: "개요", icon: Landmark },
   { href: "/money/accounts", label: "계좌", icon: WalletCards },

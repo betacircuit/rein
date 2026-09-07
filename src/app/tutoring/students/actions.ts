@@ -368,8 +368,6 @@ export async function saveRemoteStudentAction(
   redirect(`/tutoring/students/${data.id}?created=1`);
 }
 
-export const createRemoteStudentAction = saveRemoteStudentAction;
-
 const quickSchema = z.object({
   name: z.string().trim().min(1, "학생 이름을 입력해 주세요.").max(80),
   defaultMode: z.enum(["online", "in_person"]),

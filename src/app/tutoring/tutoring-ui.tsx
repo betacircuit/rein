@@ -1,20 +1,6 @@
-import type {
-  LessonMode,
-  LessonStatus,
-  TutoringSubject,
-  TutoringType,
-} from "@/domain/tutoring/model";
+import type { LessonMode, LessonStatus } from "@/domain/tutoring/model";
 import { formatKoreanDate } from "@/lib/format/date";
 
-export const tutoringTypeLabel: Record<TutoringType, string> = {
-  subject: "교과",
-  school_record: "생기부",
-};
-export const subjectLabel: Record<TutoringSubject, string> = {
-  math: "수학",
-  physics: "물리",
-  chemistry: "화학",
-};
 export const lessonModeLabel: Record<LessonMode, string> = { online: "온라인", in_person: "대면" };
 export const lessonStatusLabel: Record<LessonStatus, string> = {
   scheduled: "예정",

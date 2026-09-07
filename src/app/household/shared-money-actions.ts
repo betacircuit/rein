@@ -375,7 +375,3 @@ export async function confirmSettlementMatchAction(formData: FormData) {
   refreshSharedMoney();
   redirect("/household/settlements?matched=1");
 }
-
-export async function requireSharedMoneyState() {
-  return demoState();
-}

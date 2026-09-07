@@ -1,9 +1,6 @@
 import { z } from "zod";
 
-import {
-  suggestSubscriptionMatches,
-  type SubscriptionState,
-} from "@/domain/subscriptions/model";
+import { suggestSubscriptionMatches, type SubscriptionState } from "@/domain/subscriptions/model";
 import { readDemoSession } from "@/lib/auth/session";
 import { readDemoMoneyState } from "@/lib/money/demo-store";
 

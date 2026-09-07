@@ -83,7 +83,7 @@ describe("Phase 09 inspectable release contract", () => {
   test("UX-003 primary forms use conditional progressive disclosure", () => {
     const studentForm = read("src/app/tutoring/students/student-form.tsx");
     expect(studentForm).toMatch(/type === "subject"[\s\S]*mode === "in_person"/);
-    const scheduleForm = read("src/app/tutoring/schedule/schedule-form.tsx");
+    const scheduleForm = read("src/app/tutoring/schedule/schedule-workspace.tsx");
     expect(scheduleForm).toContain('name="startTime"');
     expect(scheduleForm).toContain('name="endTime"');
     expect(read("src/app/money/subscriptions/subscription-form.tsx")).toMatch(

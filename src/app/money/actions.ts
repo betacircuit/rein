@@ -50,17 +50,6 @@ const maskedAccountNumber = z
   .refine((value) => value === null || /[•*xX]/.test(value), {
     message: "전체 번호 대신 •••• 1234처럼 마스킹해 주세요.",
   });
-const transactionSchema = z.object({
-  transactionId: z.string().optional(),
-  accountId: z.string().min(1, "계좌를 선택해 주세요."),
-  kind: z.enum(["income", "expense"]),
-  amount: z.coerce.number().int().positive("금액은 1원 이상이어야 해요."),
-  occurredAt: z.string().min(1),
-  categoryCode: z.string().min(1),
-  counterparty: optionalText,
-  descriptor: optionalText,
-  memo: optionalText,
-});
 const accountSchema = z.object({
   accountId: z.string().optional(),
   institutionName: z.string().trim().min(1, "기관명을 입력해 주세요."),
@@ -102,106 +91,6 @@ async function withFreshSuggestions(state: MoneyState) {
       ...generated.filter((item) => !settled.some((old) => old.id === item.id)),
     ],
   };
-}
-
-function transactionInput(formData: FormData) {
-  return transactionSchema.safeParse({
-    transactionId: formData.get("transactionId") || undefined,
-    accountId: formData.get("accountId"),
-    kind: formData.get("kind"),
-    amount: formData.get("amount"),
-    occurredAt: formData.get("occurredAt"),
-    categoryCode: formData.get("categoryCode"),
-    counterparty: formData.get("counterparty") || "",
-    descriptor: formData.get("descriptor") || "",
-    memo: formData.get("memo") || "",
-  });
-}
-
-export async function saveTransactionAction(
-  _previous: MoneyActionState,
-  formData: FormData,
-): Promise<MoneyActionState> {
-  const parsed = transactionInput(formData);
-  if (!parsed.success) return { status: "error", errors: parsed.error.flatten().fieldErrors };
-  const transactionId = parsed.data.transactionId ?? randomUUID();
-  try {
-    const state = await demoMoneyState();
-    if (
-      !state.accounts.some(
-        (account) => account.id === parsed.data.accountId && account.ownerId === state.userId,
-      )
-    )
-      return { status: "error", message: "내 계좌를 찾지 못했어요." };
-    if (
-      !state.categories.some(
-        (category) =>
-          category.code === parsed.data.categoryCode &&
-          category.kind === parsed.data.kind &&
-          category.isActive,
-      )
-    )
-      return { status: "error", message: "현재 사용할 수 있는 분류를 선택해 주세요." };
-    const existing = state.transactions.find((item) => item.id === transactionId);
-    if (existing && existing.source !== "manual")
-      return {
-        status: "error",
-        message: "가져온 거래는 원본을 유지하고 메모·분류 단계에서 다뤄요.",
-      };
-    const now = new Date().toISOString();
-    const transaction = validateTransaction({
-      id: transactionId,
-      ownerId: state.userId,
-      accountId: parsed.data.accountId,
-      categoryCode: parsed.data.categoryCode,
-      scope: "private",
-      householdId: null,
-      direction: parsed.data.kind === "income" ? "inflow" : "outflow",
-      kind: parsed.data.kind,
-      amount: toKrw(parsed.data.amount),
-      occurredAt: `${parsed.data.occurredAt}:00+09:00`,
-      counterparty: parsed.data.counterparty,
-      descriptor: parsed.data.descriptor,
-      memo: parsed.data.memo,
-      source: "manual",
-      externalTransactionId: null,
-      importFingerprint: null,
-      transferGroupId: null,
-      createdAt: existing?.createdAt ?? now,
-      updatedAt: now,
-    });
-    let next = {
-      ...state,
-      transactions: existing
-        ? state.transactions.map((item) => (item.id === transaction.id ? transaction : item))
-        : [...state.transactions, transaction],
-    };
-    next = await withFreshSuggestions(next);
-    await saveDemoMoneyState(next);
-  } catch (error) {
-    return {
-      status: "error",
-      message: error instanceof Error ? error.message : "거래를 저장하지 못했어요.",
-    };
-  }
-  redirect(`/money/transactions/${transactionId}?saved=1`);
-}
-
-export async function deleteTransactionAction(formData: FormData) {
-  const state = await demoMoneyState();
-  const transactionId = String(formData.get("transactionId") ?? "");
-  const transaction = state.transactions.find((item) => item.id === transactionId);
-  if (
-    !transaction ||
-    transaction.source !== "manual" ||
-    state.allocations.some((item) => item.transactionId === transactionId)
-  )
-    return;
-  await saveDemoMoneyState({
-    ...state,
-    transactions: state.transactions.filter((item) => item.id !== transactionId),
-  });
-  redirect("/money/transactions?deleted=1");
 }
 
 export async function saveAccountAction(
@@ -478,10 +367,6 @@ export async function commitCsvAction(formData: FormData) {
   });
   await saveDemoMoneyState(state);
   redirect(`/money/transactions?imported=${transactions.length}`);
-}
-
-export async function requireMoneyState() {
-  return demoMoneyState();
 }
 
 export async function createMoneyCategoryAction(formData: FormData) {

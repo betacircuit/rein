@@ -416,7 +416,3 @@ export async function dismissSubscriptionInsightAction(formData: FormData) {
   });
   revalidatePath("/money/subscriptions");
 }
-
-export async function requireSubscriptionState() {
-  return demoSubscriptionState();
-}

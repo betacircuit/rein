@@ -1,5 +1,3 @@
-import { CircleDollarSign } from "lucide-react";
-
 import type {
   SharedExpenseCategory,
   SharedExpenseKind,
@@ -48,14 +46,6 @@ export function SharedExpenseStatusBadge({ status }: { status: SharedExpenseStat
       )}
     >
       {sharedExpenseStatusLabel[status]}
-    </span>
-  );
-}
-
-export function SharedMoneyMark() {
-  return (
-    <span className="grid size-10 shrink-0 place-items-center rounded-2xl bg-[var(--accent-wash)] text-[var(--accent-dark)]">
-      <CircleDollarSign aria-hidden="true" className="size-5" />
     </span>
   );
 }

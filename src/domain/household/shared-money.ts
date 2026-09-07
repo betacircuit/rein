@@ -355,21 +355,6 @@ export function settlementBalance(
   return { paid, remaining: toKrw(settlement.amountDue - paid) };
 }
 
-export function saveSettlement(state: HouseholdMoneyState, settlement: Settlement) {
-  assertMember(state, settlement.fromMemberId);
-  assertMember(state, settlement.toMemberId);
-  if (settlement.fromMemberId === settlement.toMemberId || settlement.amountDue <= 0n) {
-    throw new Error("정산 방향과 금액을 확인해 주세요.");
-  }
-  const existing = state.settlements.find((item) => item.id === settlement.id);
-  return {
-    ...state,
-    settlements: existing
-      ? state.settlements.map((item) => (item.id === settlement.id ? settlement : item))
-      : [...state.settlements, settlement],
-  };
-}
-
 export function suggestSettlementMatches(input: {
   state: HouseholdMoneyState;
   transactions: readonly MatchableHouseholdTransaction[];

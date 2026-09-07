@@ -3,10 +3,7 @@
 import { LoaderCircle, UserPlus } from "lucide-react";
 import { useActionState, useEffect, useRef } from "react";
 
-import {
-  createStudentQuickAction,
-  type StudentActionState,
-} from "@/app/tutoring/students/actions";
+import { createStudentQuickAction, type StudentActionState } from "@/app/tutoring/students/actions";
 import { Button } from "@/components/ui/button";
 
 const initialState: StudentActionState = { status: "idle" };
@@ -47,7 +44,12 @@ export function StudentQuickForm() {
 
           <label className="text-sm font-bold" htmlFor="defaultMode">
             과외 방식 *
-            <select className={fieldClass} defaultValue="online" id="defaultMode" name="defaultMode">
+            <select
+              className={fieldClass}
+              defaultValue="online"
+              id="defaultMode"
+              name="defaultMode"
+            >
               <option value="online">화상</option>
               <option value="in_person">대면</option>
             </select>

@@ -72,7 +72,11 @@ export async function POST(request: Request) {
   const parsed = requestSchema.safeParse(body);
   if (!parsed.success) return json("대화가 너무 길거나 형식이 올바르지 않습니다.", 400);
 
-  if (parsed.data.messages.some((message) => isRainyRestrictedRequest(message.content))) {
+  // Only the newest turn is checked: earlier turns (including RAINY's own past
+  // replies) are replayed as context on every request, and scanning all of them
+  // let a single flagged phrase permanently lock the rest of the conversation.
+  const latestMessage = parsed.data.messages.at(-1);
+  if (latestMessage && isRainyRestrictedRequest(latestMessage.content)) {
     return json("ACCESS DENIED: RESTRICTED DOMAIN", 403);
   }
 

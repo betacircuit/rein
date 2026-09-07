@@ -1,11 +1,6 @@
 import { z } from "zod";
 
-import type {
-  Lesson,
-  LessonFinance,
-  Student,
-  TutoringSchedule,
-} from "@/domain/tutoring/model";
+import type { Lesson, LessonFinance, Student, TutoringSchedule } from "@/domain/tutoring/model";
 import { readDemoSession } from "@/lib/auth/session";
 
 const prepItemSchema = z.object({

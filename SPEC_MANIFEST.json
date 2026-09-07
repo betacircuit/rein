@@ -2,7 +2,7 @@
   "project": "rein",
   "artifact_kind": "codex-full-build-specification-pack",
   "version": "1.0.0",
-  "generated_at": "2026-09-04T23:04:11.706Z",
+  "generated_at": "2026-09-07T16:24:36.583Z",
   "locale": "ko-KR",
   "currency": "KRW",
   "timezone": "Asia/Seoul",
@@ -59,7 +59,7 @@
     "agent_instructions": "AGENTS.md",
     "setup": "MCP_AND_SKILLS_SETUP.md"
   },
-  "file_count_excluding_manifest": 374,
+  "file_count_excluding_manifest": 379,
   "files": [
     {
       "path": ".codex/config.toml.example",
@@ -174,9 +174,9 @@
     },
     {
       "path": ".env.example",
-      "bytes": 1103,
-      "lines": 43,
-      "sha256": "cff9536476fe0648dffe75b9141e293fc5dce9ba04b2370dbf41ebce7e5ff58a"
+      "bytes": 1272,
+      "lines": 47,
+      "sha256": "e5732ffbebf742e9acf1a7b79ee205e5896611ef8690b2a4e04d0ffd6cdfe27c"
     },
     {
       "path": ".github/workflows/ci.yml",
@@ -191,10 +191,34 @@
       "sha256": "1c5a0d119c2abe3da2aed9cd942bb5220d335c989c579deb14a3f8f1c5912e18"
     },
     {
+      "path": ".lint-check.err.log",
+      "bytes": 28,
+      "lines": 2,
+      "sha256": "b543827ce56a63357c629028555ecec2cc964dda33dbbf2a9a2872b1a2ab20f8"
+    },
+    {
+      "path": ".lint-check.log",
+      "bytes": 0,
+      "lines": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
       "path": ".mcp.json.example",
       "bytes": 715,
       "lines": 22,
       "sha256": "25b217e380d2a3d7da2038f9127e9b78644d14f2c3834b96b725214f3f1799a9"
+    },
+    {
+      "path": ".next-dev-error.log",
+      "bytes": 11,
+      "lines": 2,
+      "sha256": "d30f0972063138a9eebd98cfa877ffc348e5dee5da9c997a5c934127ec1e0d71"
+    },
+    {
+      "path": ".next-dev.log",
+      "bytes": 28584,
+      "lines": 406,
+      "sha256": "4697a90b8afbfd4e2f6a65a8f23c91759b7a779ae4733e47886324fac22b4acf"
     },
     {
       "path": ".prettierignore",
@@ -563,6 +587,11 @@
       "sha256": "3163b8d4f21c8504d17f2a096b19b9417ab4feca283810a881e9966f122cf108"
     },
     {
+      "path": "public/rainy-cloud-cutout.png",
+      "bytes": 1057322,
+      "sha256": "c60b15953359a2a739d4b50c2efca2c99019d2cfb7ba6bcf8f35baf6748927f4"
+    },
+    {
       "path": "public/rainy-mascot.png",
       "bytes": 235737,
       "sha256": "22a667b67fc217975fc36432aedc365e6857255f8108f4b96ca111951c3a0ee4"
@@ -691,9 +720,9 @@
     },
     {
       "path": "src/app/api/rainy/chat/route.ts",
-      "bytes": 4886,
-      "lines": 128,
-      "sha256": "f8f96d5be9c3638737566e64522eafd6d15a9a2daa14ee7b8bc8abd9a83bd198"
+      "bytes": 5175,
+      "lines": 132,
+      "sha256": "5ee53d9e646a0186d2609a1c9a51fd65c8f0c93a95ce89d19dc6c22f777256d0"
     },
     {
       "path": "src/app/auth/callback/route.ts",
@@ -709,9 +738,9 @@
     },
     {
       "path": "src/app/globals.css",
-      "bytes": 101791,
-      "lines": 5089,
-      "sha256": "e551b4ffd306406dbf71ceabb27c39c7dc19df30be6ff0f4a46914be2ac8099b"
+      "bytes": 77871,
+      "lines": 3899,
+      "sha256": "03b7da369cd3230df81b116278121787e8df2345cc025b081ea0faf818f1be24"
     },
     {
       "path": "src/app/home/page.tsx",
@@ -798,10 +827,22 @@
       "sha256": "4a844f324403c8d4603b9b22d8813b3293eb76113c3d8a1d2ba4fdf494b346c0"
     },
     {
+      "path": "src/app/household/master-rules-actions.ts",
+      "bytes": 2858,
+      "lines": 86,
+      "sha256": "4efe351fba6950afa59d331f4853055a6f5b7a3513e4c9d3d57ab0778073d1d8"
+    },
+    {
+      "path": "src/app/household/master-rules.tsx",
+      "bytes": 4934,
+      "lines": 143,
+      "sha256": "930c4e2eb58e236c164ce9ec2a4f498f330d3bee12a64cfb8cc4275575ba724a"
+    },
+    {
       "path": "src/app/household/page.tsx",
-      "bytes": 7782,
-      "lines": 213,
-      "sha256": "ce5013d5fb7d85b6106b6687d7f688588c97a3973a0acf476a4234a6b6e7b4c0"
+      "bytes": 7144,
+      "lines": 194,
+      "sha256": "a7f12808b61e3c0b0cc1798a67bff18ff65b66f3dd12bf12995f10dcdecd96dc"
     },
     {
       "path": "src/app/household/settlements/page.tsx",
@@ -811,15 +852,15 @@
     },
     {
       "path": "src/app/household/shared-money-actions.ts",
-      "bytes": 13163,
-      "lines": 382,
-      "sha256": "0d791db7a6e8272699035e36f24f4734257f0eebcbd5486996056abe27cf619c"
+      "bytes": 13088,
+      "lines": 378,
+      "sha256": "5cf08f134b9a5976f59cc0421f365503bf1a80d9d10e5dc47d46660fea7d48e5"
     },
     {
       "path": "src/app/household/shared-money-ui.tsx",
-      "bytes": 1882,
-      "lines": 62,
-      "sha256": "45bd8dbb06705246dd8958c3e1f7af817b4b5212bc23e8cad4505a5f2d97ecb1"
+      "bytes": 1574,
+      "lines": 52,
+      "sha256": "5ea83216e147eb1de9f35d5a812831e5ac213ab5652748e0dc01fcc30a466198"
     },
     {
       "path": "src/app/household/shopping/page.tsx",
@@ -901,9 +942,9 @@
     },
     {
       "path": "src/app/money/actions.ts",
-      "bytes": 18766,
-      "lines": 533,
-      "sha256": "f2adf4c8168a9328b3502738630c9b303d64f6c68a8b2819058f643b48938b6a"
+      "bytes": 14657,
+      "lines": 418,
+      "sha256": "0d986c6736c3f62fb38ac2ed6c0e479ea0147e255810270a64255f57742c4150"
     },
     {
       "path": "src/app/money/analytics/page.tsx",
@@ -949,9 +990,9 @@
     },
     {
       "path": "src/app/money/money-ui.tsx",
-      "bytes": 2979,
-      "lines": 96,
-      "sha256": "f38c6d8dd9785e9f8df48b9cb05de7c0fefb091d0211780dd606c0ae6b3200a3"
+      "bytes": 2603,
+      "lines": 80,
+      "sha256": "c911f4a51aa514a5e45041ac5b52afa72d508d14e5502b82051a89c02b349971"
     },
     {
       "path": "src/app/money/page.tsx",
@@ -991,9 +1032,9 @@
     },
     {
       "path": "src/app/money/subscriptions/actions.ts",
-      "bytes": 15659,
-      "lines": 423,
-      "sha256": "6fcf0e7af9b58bafa3eb51d2716ee7f13501e64251a01af74ab1a031919837f9"
+      "bytes": 15571,
+      "lines": 419,
+      "sha256": "9739e40179b8e4c0843fa4434ef76e03bb9e80fc2b23b442e444b149fde0e402"
     },
     {
       "path": "src/app/money/subscriptions/calendar/page.tsx",
@@ -1122,12 +1163,6 @@
       "sha256": "5b751245fe83de80dc4abe302fa104532c92513467fbaf3e7249b535d3dc9a59"
     },
     {
-      "path": "src/app/settings/bank-actions.ts",
-      "bytes": 569,
-      "lines": 20,
-      "sha256": "2b6300c286579589a270004e48285dbcef2c62807d6f77e974011c6973ea6752"
-    },
-    {
       "path": "src/app/settings/data/actions.ts",
       "bytes": 809,
       "lines": 22,
@@ -1177,9 +1212,9 @@
     },
     {
       "path": "src/app/settings/integrations/page.tsx",
-      "bytes": 8617,
-      "lines": 183,
-      "sha256": "0057450b414805c0882f36baf9724bca5b29945eaa363026642fded1b7f9330a"
+      "bytes": 7514,
+      "lines": 156,
+      "sha256": "e35a380e1a40c719968f702e27ae29c8c234aa0ba7f950af56e2e9b91a81d05d"
     },
     {
       "path": "src/app/settings/money/page.tsx",
@@ -1195,9 +1230,9 @@
     },
     {
       "path": "src/app/settings/page.tsx",
-      "bytes": 6913,
-      "lines": 190,
-      "sha256": "b5ce0d89077d965f9774154d857e28afd2449d554c49eac61a5e4e7cb02ef849"
+      "bytes": 4520,
+      "lines": 127,
+      "sha256": "74f3661eee42cf06663289c10d64d75e01d4aa88246fad09a6025e89a4e9f901"
     },
     {
       "path": "src/app/settings/profile/page.tsx",
@@ -1213,9 +1248,9 @@
     },
     {
       "path": "src/app/settings/rainy-provider-form.tsx",
-      "bytes": 2250,
-      "lines": 68,
-      "sha256": "aa4b4b4a916ff333da0c2b5131c5e6e9099b9485c36d71af87d4b7a34c16731f"
+      "bytes": 2490,
+      "lines": 81,
+      "sha256": "57b0436cd9a225cae6a1f3226915f79343301c8498efaa180776c189ce7addfc"
     },
     {
       "path": "src/app/settings/tutoring/page.tsx",
@@ -1225,9 +1260,9 @@
     },
     {
       "path": "src/app/tutoring/actions.ts",
-      "bytes": 17786,
-      "lines": 493,
-      "sha256": "dc13363926969daa9e5b45daee08e219e0c72232f2b6133efb53ac13ff390943"
+      "bytes": 8236,
+      "lines": 236,
+      "sha256": "bc19fee7d53820af0017db8aaf9d7042f5e7a841b294dd07390adfcbc0aeebb3"
     },
     {
       "path": "src/app/tutoring/lessons/[lessonId]/page.tsx",
@@ -1272,16 +1307,10 @@
       "sha256": "2b9a023d3d961cdf2fe32022e230fb09269cab9bfe4b610b47ebd9b99e2af832"
     },
     {
-      "path": "src/app/tutoring/schedule/schedule-form.tsx",
-      "bytes": 2752,
-      "lines": 86,
-      "sha256": "82edcc21dd38fa0f7c1a02f94ddaa2f35a78aaa329ca95de6440cc5a0891dca5"
-    },
-    {
       "path": "src/app/tutoring/schedule/schedule-workspace.tsx",
-      "bytes": 13465,
+      "bytes": 13526,
       "lines": 363,
-      "sha256": "a31065337aaf95c91c80e528638eb7daf0f2a5e68ebcacff1c36903ef9bd509f"
+      "sha256": "860da90760992068237ed4d345e53ecfb8bf50af1354b0aec7ada5dd6b6e3c2f"
     },
     {
       "path": "src/app/tutoring/schedule/tutoring-resource-dock.tsx",
@@ -1291,15 +1320,15 @@
     },
     {
       "path": "src/app/tutoring/schedule/weekly-timetable.test.tsx",
-      "bytes": 1821,
-      "lines": 65,
-      "sha256": "1482ecd43312d2cb9979bd7557404deea263a369deb28f8ebcec721242324102"
+      "bytes": 2510,
+      "lines": 87,
+      "sha256": "4dca3bc5793a61967f067ed3f52aa6e9d435c95db9d69bb0c7af282f48a0a0a0"
     },
     {
       "path": "src/app/tutoring/schedule/weekly-timetable.tsx",
-      "bytes": 15565,
-      "lines": 429,
-      "sha256": "8a0b80fd98ad6542e5122926f724bd93592a1bec911c5f15d85f586d2971b753"
+      "bytes": 16253,
+      "lines": 445,
+      "sha256": "595c8f20ebc7995ba60dbcb12fba4a085691e5ac29bf6d9b5e0fdb6ad820fdd9"
     },
     {
       "path": "src/app/tutoring/students/[studentId]/edit/page.tsx",
@@ -1309,45 +1338,63 @@
     },
     {
       "path": "src/app/tutoring/students/[studentId]/page.tsx",
-      "bytes": 8445,
-      "lines": 203,
-      "sha256": "55c7962e12e6f258d87094055172092cf9908ec94d16648a714e396e636d9539"
+      "bytes": 8726,
+      "lines": 213,
+      "sha256": "f0c116498eeb13cb4436a427ea63af2b2765becbf418d4544284b9cee5843e96"
     },
     {
       "path": "src/app/tutoring/students/actions.ts",
-      "bytes": 13581,
-      "lines": 380,
-      "sha256": "14098e875025942d24b87443af32239c92c1a5ae9a522b2f35fce80f18b8c47b"
+      "bytes": 16066,
+      "lines": 445,
+      "sha256": "7f1b5f810cbc90d708c889b42e94fe3b582d288f90b9dac18c8d76c52c306da2"
+    },
+    {
+      "path": "src/app/tutoring/students/ledger-actions.ts",
+      "bytes": 4698,
+      "lines": 138,
+      "sha256": "633e007864d0939f521d7db38bebe91281c60cdc5109de4b495b73e28f783ddb"
     },
     {
       "path": "src/app/tutoring/students/new/page.tsx",
-      "bytes": 836,
-      "lines": 23,
-      "sha256": "5eb57a365b3def831ea14c10e76f0dc1002c1729014123df9ae16fe796a8fce4"
+      "bytes": 905,
+      "lines": 24,
+      "sha256": "92464d88acbd98e48cd20d447202d68486f3cd2372f300a3e26cbd06ee59a284"
     },
     {
       "path": "src/app/tutoring/students/page.tsx",
-      "bytes": 5642,
-      "lines": 126,
-      "sha256": "f11f0afcbf5b39b017def73624e297f63e5f75085a05c1cfbec0be3619d4632d"
+      "bytes": 5595,
+      "lines": 124,
+      "sha256": "bd53581aaafb07a9f12f0c00c0f0c42b5873adb3647904144cb6c37766ac492d"
     },
     {
       "path": "src/app/tutoring/students/student-form.tsx",
-      "bytes": 15140,
+      "bytes": 15124,
       "lines": 423,
-      "sha256": "b733f92c2645106eb2572723a5489398dce1258c42cb586ef4c27b6ebbf627aa"
+      "sha256": "e97d675cc225b2874655e779533a719c8c4a3edd7a38a0cda24ecc90b0ca7611"
+    },
+    {
+      "path": "src/app/tutoring/students/student-ledger.tsx",
+      "bytes": 7542,
+      "lines": 201,
+      "sha256": "bcbb58e7ef69cfce99bd8d6cdaa1827c82cbdf7a0a8367ebfd798b913840651b"
+    },
+    {
+      "path": "src/app/tutoring/students/student-quick-form.tsx",
+      "bytes": 3304,
+      "lines": 96,
+      "sha256": "a9996f2a0405dc49b63f6eb43eb8a1c174be20eaccf76ac24a29d92fbe1ba393"
     },
     {
       "path": "src/app/tutoring/tutoring-ui.tsx",
-      "bytes": 985,
-      "lines": 39,
-      "sha256": "ae942f52d65c6d344ff994c879d834e1ba7d15d52a48bf0ddad25a5a20414697"
+      "bytes": 698,
+      "lines": 25,
+      "sha256": "2077323246069f4c933be3471f9e1f2f49d7c485165a7d585a1a0bce6ef24b78"
     },
     {
       "path": "src/components/app-shell.tsx",
-      "bytes": 5319,
-      "lines": 135,
-      "sha256": "92ae589ccccfeead8dc54f0ad4bfb4af883bade1a425be54d882d4e2b5801dfa"
+      "bytes": 5246,
+      "lines": 134,
+      "sha256": "81a930a21291304640df2c89c8745bdada3f25d8b84df54c74b6dfa11eab0822"
     },
     {
       "path": "src/components/brand-logo.tsx",
@@ -1399,9 +1446,9 @@
     },
     {
       "path": "src/components/rainy-right-rail.tsx",
-      "bytes": 34464,
-      "lines": 933,
-      "sha256": "8dfbc3e61c68f4d434ac06fe1881b85d19651868bd2a095e7fc797800a734f1a"
+      "bytes": 34796,
+      "lines": 942,
+      "sha256": "d5dda213071f22e69e3ff4a44d0a49bc3d34a61d8d3a0693a8d5f0824d52fe63"
     },
     {
       "path": "src/components/rainy-weather-controller.tsx",
@@ -1411,27 +1458,9 @@
     },
     {
       "path": "src/components/rein-loading.tsx",
-      "bytes": 1453,
-      "lines": 45,
-      "sha256": "ad64a7f60709008f0bd087e32bcaa5c3d0e101ad89273a619542bf990aaecdd1"
-    },
-    {
-      "path": "src/components/section-page.tsx",
-      "bytes": 3120,
-      "lines": 87,
-      "sha256": "09c27a95e6a9bfbdf94500f8c9aae79249812a839747be9556e9cdb9499ebcc7"
-    },
-    {
-      "path": "src/components/sign-out-form.tsx",
-      "bytes": 486,
-      "lines": 21,
-      "sha256": "41ec5bde09a67312fe3bac2c8f050d9bee59d0b1bbaff1c3b8c4c568f3a7d55d"
-    },
-    {
-      "path": "src/components/state-preview.tsx",
-      "bytes": 2744,
-      "lines": 79,
-      "sha256": "bff067c5810aa20e4c994bbe3d5608d6dee832f709053bd4a212ba643f167ce4"
+      "bytes": 2178,
+      "lines": 57,
+      "sha256": "0c6e76c823e871f86b2ce5dffb6656c8e0199340adb3bc52db64a5edb92dacab"
     },
     {
       "path": "src/components/ui/amount-keypad.test.tsx",
@@ -1531,9 +1560,9 @@
     },
     {
       "path": "src/domain/household/shared-money.ts",
-      "bytes": 22749,
-      "lines": 607,
-      "sha256": "39510a71584278052d931df10640d03aa504d7831b0bd4d3f961267b196c279b"
+      "bytes": 22133,
+      "lines": 592,
+      "sha256": "a3f0160d21eec750ebddb10872165cc6539bcd78e708cbc22673b626860d6581"
     },
     {
       "path": "src/domain/integrations/model.test.ts",
@@ -1567,9 +1596,9 @@
     },
     {
       "path": "src/domain/money/ledger.ts",
-      "bytes": 17076,
-      "lines": 517,
-      "sha256": "95777a7f8bb9a1b73cce0a81bef4472b4fd8d20f99885d358235f64a2c642f74"
+      "bytes": 16422,
+      "lines": 488,
+      "sha256": "4bfd37fbddc0173a277e748bb224a7aae20d539ba7dd46f2a3e9efa6cf24b9ec"
     },
     {
       "path": "src/domain/records.test.ts",
@@ -1645,15 +1674,9 @@
     },
     {
       "path": "src/lib/demo-data.test.ts",
-      "bytes": 668,
-      "lines": 20,
-      "sha256": "bf228515f4d1dd47de425e27842c150b6f6084fa313d07b62e236b2aaedd80e0"
-    },
-    {
-      "path": "src/lib/demo-data.ts",
-      "bytes": 834,
-      "lines": 31,
-      "sha256": "342df1b05634a3a03b2040a5b3441d0e3c55f0281e256c9b6b2e9fe44d771fa1"
+      "bytes": 357,
+      "lines": 10,
+      "sha256": "c525d4c5a5a0a45641f9c58196341d177eaa32a6da57bf7e26a3aeefa604ca4e"
     },
     {
       "path": "src/lib/format/date.test.ts",
@@ -1669,9 +1692,9 @@
     },
     {
       "path": "src/lib/grow/demo-store.ts",
-      "bytes": 3878,
-      "lines": 121,
-      "sha256": "0d7c8c81c55c28ed395e4d2ef98c872717242c1e877380dc7ac374056b1dc62a"
+      "bytes": 2814,
+      "lines": 90,
+      "sha256": "ae48f94f1208a9f4bdc3e4e620765c07d4da9bf1acad8c2f86c07a2d8aa2419b"
     },
     {
       "path": "src/lib/grow/summary.ts",
@@ -1681,9 +1704,9 @@
     },
     {
       "path": "src/lib/household/demo-store.ts",
-      "bytes": 12763,
-      "lines": 394,
-      "sha256": "fb3ed8ed7fc7af96794b7cd51e9c7bad2a0a3a628a5612a4acf6f8f95c79f457"
+      "bytes": 6645,
+      "lines": 202,
+      "sha256": "738f74fc9af6d5813413a418ce55876342fa8c8dc30b3b7cdc3ceeef4adae0f6"
     },
     {
       "path": "src/lib/household/marketplace-links.test.ts",
@@ -1699,21 +1722,21 @@
     },
     {
       "path": "src/lib/household/shared-money-store.ts",
-      "bytes": 10648,
-      "lines": 327,
-      "sha256": "1abcd198a99fd142766cc442cb4d1869e90ed54846ddcc1edae1ed5360a91cc2"
+      "bytes": 8639,
+      "lines": 264,
+      "sha256": "5dccde13af7c77570f5236d4a2cd655e22647b3d3bef95f09b66e78bac437319"
     },
     {
       "path": "src/lib/integrations/demo-store.ts",
-      "bytes": 2002,
-      "lines": 59,
-      "sha256": "8d2a932810fe593c81241895db07dff1132053ea597772bac8cb3d58c06e9f4e"
+      "bytes": 1652,
+      "lines": 47,
+      "sha256": "b459b9b937292a649fe9ee488406dcb1f44b553fcbc3d62bf92e69a01d48cff8"
     },
     {
       "path": "src/lib/money/demo-store.ts",
-      "bytes": 11776,
-      "lines": 387,
-      "sha256": "eaa43688128b2937aab24148d709ccc020738e1ac4d1053e536c39ac28bfdaa8"
+      "bytes": 5808,
+      "lines": 174,
+      "sha256": "7023a6c75399817aa0469e2f1c7aab2a1f03261a848cd2f76a7035c173e71ac1"
     },
     {
       "path": "src/lib/money/remote-repository.ts",
@@ -1741,9 +1764,9 @@
     },
     {
       "path": "src/lib/rainy/groq-key.ts",
-      "bytes": 2225,
-      "lines": 73,
-      "sha256": "809fda4d01e4782994d659abc195f21ff9042bc454cf8ef1000fe3d574fd142e"
+      "bytes": 2569,
+      "lines": 79,
+      "sha256": "d79a17825d3b0855eb752e193fa778789bdebb2f72b973e6766efe9473348e7c"
     },
     {
       "path": "src/lib/rainy/site-command-router.test.ts",
@@ -1753,9 +1776,9 @@
     },
     {
       "path": "src/lib/rainy/site-command-router.ts",
-      "bytes": 8087,
+      "bytes": 8148,
       "lines": 221,
-      "sha256": "286f2ccac735a144034f53be688a2e2b01f97e60896c7e89f6b68c762338a18a"
+      "sha256": "aac6c8cba9cb124c66721c12aa8b4dd02a9e42375ccbd34d9c523e37164c5323"
     },
     {
       "path": "src/lib/rainy/today-command.test.ts",
@@ -1801,9 +1824,9 @@
     },
     {
       "path": "src/lib/release/phase09-contract.test.ts",
-      "bytes": 7142,
+      "bytes": 7147,
       "lines": 161,
-      "sha256": "a9c723b36cab885fb55354e1641845f6a3929c9b6ee1bdd837c96b2f972f09d1"
+      "sha256": "7453d6aff00e5376cd11471c10cc3262d46f636cbe0d8df0fe9c9225742fe98f"
     },
     {
       "path": "src/lib/routing/protected-app-path.test.ts",
@@ -1855,15 +1878,9 @@
     },
     {
       "path": "src/lib/subscriptions/demo-store.ts",
-      "bytes": 9773,
-      "lines": 330,
-      "sha256": "6b8d8fdf8330d27118547c5e6d02ab2068cf829ac23c38b03d3521b890ffd4c0"
-    },
-    {
-      "path": "src/lib/supabase/client.ts",
-      "bytes": 317,
-      "lines": 11,
-      "sha256": "99b7f87f2ddfe9ef27dc4f27ca2b6ceb52eb3bde15a0e7e60c81532b7e291517"
+      "bytes": 6155,
+      "lines": 193,
+      "sha256": "39273cb2cb69c3d6a20c62c79cd4e4acf49f51602e2402f1b8454e8cb75d75d4"
     },
     {
       "path": "src/lib/supabase/config.ts",
@@ -1885,15 +1902,15 @@
     },
     {
       "path": "src/lib/tutoring/demo-store.ts",
-      "bytes": 7727,
-      "lines": 247,
-      "sha256": "eaecebc633c13374c302bc04b7b37ce509ffe88163a269af6b2b693b2d9edf71"
+      "bytes": 4398,
+      "lines": 131,
+      "sha256": "4ce64f4b03c73297fd330a0c6300fe0665cb5c1fbf0b850d79ae29f17e82e048"
     },
     {
       "path": "src/lib/tutoring/remote-repository.ts",
-      "bytes": 6751,
-      "lines": 183,
-      "sha256": "d548c58340d3533fbd7c92273e4e5b5111a8f4d12c42c53dfbc471608e0d1159"
+      "bytes": 8797,
+      "lines": 245,
+      "sha256": "bea1ca326c7c188ef41c6b3ec0cb48de3f192bb807ea548e3657614e85276aea"
     },
     {
       "path": "src/lib/tutoring/resource-links.test.ts",
@@ -2164,6 +2181,18 @@
       "bytes": 7129,
       "lines": 230,
       "sha256": "9fa22f6e8181a5b0a52ebccb66fbf74f8a360243e789cb50a81a7e8058f9a8cf"
+    },
+    {
+      "path": "supabase/migrations/0024_student_hourly_rate.sql",
+      "bytes": 1296,
+      "lines": 42,
+      "sha256": "096c3766c5cf1010229466c578bf58199a03758179e5c918787f55111732a971"
+    },
+    {
+      "path": "supabase/migrations/0025_household_master_rules.sql",
+      "bytes": 1531,
+      "lines": 32,
+      "sha256": "3f12999b738b3f5bdb4e2b2b3b5cacad6190ff0b406b9f84a95d8295ccd16194"
     },
     {
       "path": "supabase/README.md",
